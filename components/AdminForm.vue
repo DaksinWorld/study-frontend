@@ -26,7 +26,7 @@ export default {
   methods: {
     async SubmitHandler() {
       try {
-        const response = await this.$axios.$post('https://study-project-2.herokuapp.com/api/auth/login', {login: this.email, password: this.password})
+        const response = await this.$axios.$post('api/auth/login', {login: this.email, password: this.password})
         localStorage.setItem('jwt', response.access_token)
         location.reload()
       } catch (e) {

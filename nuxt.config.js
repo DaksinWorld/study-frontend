@@ -50,7 +50,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true,
+    baseUrl: 'https://study-project-2.herokuapp.com'
   },
 
   proxy: {
