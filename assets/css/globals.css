@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+:root {
+  --white_hex: #ffffff;
+  --white: 255, 255, 255;
+  --color_primary: 43,57,144;
+  --green_light: 105,163,142;
+  --middle_lavender: #c4c7e0;
+}
+
+nav {
+  width: 100%;
+  height: 70px;
+
+  background-color: rgba(var(--white),0.02);
+  position:fixed;
+  -webkit-box-shadow: 0 0 30px rgba(0,0,0,.05);
+  box-shadow: 0 0 30px rgba(0,0,0,.05);
+
+  display: flex;
+  align-items: center;
+}
+
+body {
+  font-family: 'Source Sans Pro';
+}
+
+.wrapper {
+  width: 1720px;
+  margin: 0 auto;
+  padding: 5px;
+}
+
+.nuxt-link-active, nuxt-link-exact-active {
+  color: rgb(var(--green_light)) !important;
+}
+
+li {
+  list-style: none;
+}
+
+.not-underlined, .not-underlined:hover {
+  text-transform: none;
+}
+
+input[type=file]{
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.active {
+  color: green !important;
+  transition: color .2s linear;
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 18px;
+  font-family: "Source Sans Pro";
+}
+
+@media screen and (max-width: 1650px) {
+  .wrapper {
+    width: 1200px;
+  }
+}
+
+@media screen and (max-width: 1210px) {
+  .wrapper {
+    width: 1024px;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .wrapper {
+    width: 768px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    width: auto;
+  }
+}
