@@ -54,7 +54,6 @@ export default {
   },
 
   proxy: {
-    '/api/': { target: 'https://study-project-2.herokuapp.com/api', pathRewrite: {'^/api/': ''} },
     '/images/': { target: 'https://study-project-2.herokuapp.com', pathRewrite: {'^/images/': ''} },
   },
 
