@@ -1,15 +1,14 @@
 <template>
   <div>
-    <input type="search" class="form-control my-2" v-model="searchValue">
+    <input class="form-control my-2" type="search" v-model="searchValue">
     <table class="table b-1" v-if="sortedData">
       <thead class="thead-dark">
       <tr>
         <th @click="pickedBy('image')" :class="{active: picked === 'image'}">Image</th>
-        <th @click="pickedBy('name')" :class="{active: picked === 'name'}">Name</th>
-        <th @click="pickedBy('description')" :class="{active: picked === 'description'}">Description</th>
-        <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Location</th>
-        <th @click="pickedBy('language')" :class="{active: picked === 'language'}">Language</th>
-        <th @click="pickedBy('price')" :class="{active: picked === 'price'}">Price</th>
+        <th @click="pickedBy('name')" :class="{active: picked === 'name'}">First Name</th>
+        <th @click="pickedBy('description')" :class="{active: picked === 'description'}">Second Name</th>
+        <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Description</th>
+        <th @click="pickedBy('language')" :class="{active: picked === 'language'}">Subtitle</th>
         <th>Edit</th>
       </tr>
       </thead>
@@ -18,27 +17,20 @@
         <td v-if="d.images[1].url">
           <img height="50" width="50" :src='"http://localhost:3000" + d.images[1].url' alt="image">
         </td>
-        <td v-if="d.name">
-          <h4>{{d.name}}</h4>
+        <td v-if="d.firstName">
+          <h4>{{d.firstName}}</h4>
+        </td>
+        <td v-if="d.secondName">
+          <h4>{{d.secondName}}</h4>
         </td>
         <td v-if="d.description">
           <h4>{{d.description}}</h4>
         </td>
-        <td v-if="d.location">
-          <h4>{{d.location}}</h4>
-        </td>
-        <td v-if="d.language">
-          <h4>{{d.language}}</h4>
-        </td>
-        <td v-if="d.price">
-          <h4>{{d.price}}</h4>
+        <td v-if="d.subtitle">
+          <h4>{{d.subtitle}}</h4>
         </td>
         <td>
-          <button class="btn btn-primary">
-            <nuxt-link class="text-white" :to="`/admin/${d._id}`">
-              Edit
-            </nuxt-link>
-          </button>
+          <EditButton :url="`/edit/worker/${d._id}`"/>
         </td>
       </tr>
       </tbody>
@@ -53,7 +45,8 @@ export default {
       jwtToken: '',
       data: [],
       picked: '',
-      searchValue: ''
+      searchValue: '',
+      inputVal: ''
     }
   },
   async mounted(){
@@ -61,7 +54,7 @@ export default {
       if (this.jwtToken){
         await this.$store.dispatch('requests/checkJwt')
       }
-      this.data = await this.$store.dispatch('requests/getAll', 'product')
+      this.data = await this.$store.dispatch('requests/getAll', 'workers')
     } catch (e) {
       this.$store.dispatch('setMessage', {
         value: e.message,

@@ -2,22 +2,23 @@
   <div class="container">
     <AdminForm v-if="!jwtToken"/>
     <div v-else>
-      <button class="btn btn-warning my-2">
-        <nuxt-link to="/admin/create" class="text-white not-underlined">Create New Product</nuxt-link>
-      </button>
-      <button class="btn btn-warning my-2">
-        <nuxt-link to="/admin/create-course" class="text-white not-underlined">Create New Course</nuxt-link>
-      </button>
-      <input type="search" class="form-control my-1" placeholder="search" v-model="searchValue">
+      <CreateBtn :url="`/admin/create`" :text="'Create New Product'"/>
+      <CreateBtn :url="`/admin/create-course`" :text="'Create New Course'"/>
+      <CreateBtn :url="`/admin/create-worker`" :text="'Create New Worker'"/>
       <button class="btn btn-dark" @click="pickedValue('products')">Products</button>
       <button class="btn btn-dark" @click="pickedValue('courses')">Courses</button>
+      <button class="btn btn-dark" @click="pickedValue('workers')">Workers</button>
       <div v-if="picked === 'products'">
         <h2>Products</h2>
         <TableProduct/>
       </div>
-      <div v-else>
+      <div v-else-if="picked === 'courses'">
         <h2>Courses</h2>
         <TableCourses/>
+      </div>
+      <div v-else>
+        <h2>Workers</h2>
+        <TableWorkers/>
       </div>
     </div>
   </div>

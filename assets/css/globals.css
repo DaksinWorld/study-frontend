@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
 
 :root {
   --white_hex: #ffffff;
@@ -6,6 +7,15 @@
   --color_primary: 43,57,144;
   --green_light: 105,163,142;
   --middle_lavender: #c4c7e0;
+  --standard_border_radius: 15px;
+}
+
+.w-33 {
+  width: 33%;
+}
+
+a, a:hover {
+  text-decoration: none;
 }
 
 nav {
@@ -14,8 +24,12 @@ nav {
 
   background-color: rgba(var(--white),0.02);
   position:fixed;
+  top:0;
   -webkit-box-shadow: 0 0 30px rgba(0,0,0,.05);
   box-shadow: 0 0 30px rgba(0,0,0,.05);
+  backdrop-filter: blur(5px);
+
+  z-index: 2;
 
   display: flex;
   align-items: center;

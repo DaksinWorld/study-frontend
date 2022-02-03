@@ -1,46 +1,49 @@
 <template>
-  <table class="table b-1" v-if="sortedData">
-    <thead class="thead-dark">
-    <tr>
-      <th @click="pickedBy('image')" :class="{active: picked === 'image'}">Image</th>
-      <th @click="pickedBy('name')" :class="{active: picked === 'name'}">Name</th>
-      <th @click="pickedBy('fieldOfCourse')" :class="{active: picked === 'fieldOfCourse'}">FieldOfCourse</th>
-      <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Location</th>
-      <th @click="pickedBy('universities')" :class="{active: picked === 'universities'}">University</th>
-      <th @click="pickedBy('price')" :class="{active: picked === 'price'}">Price</th>
-      <th>Edit</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(d, i) in sortedData" :key="i">
-      <td v-if="d.images[1].url">
-        <img height="50" width="50" :src='"https://study-project-2.herokuapp.com" + d.images[1].url' alt="image">
-      </td>
-      <td v-if="d.name">
-        <h4>{{d.name}}</h4>
-      </td>
-      <td v-if="d.fieldOfCourse">
-        <h4>{{d.fieldOfCourse}}</h4>
-      </td>
-      <td v-if="d.location">
-        <h4>{{d.location}}</h4>
-      </td>
-      <td v-if="d.universities">
-        <h4>{{d.universities}}</h4>
-      </td>
-      <td v-if="d.price">
-        <h4>{{d.price}}</h4>
-      </td>
-      <td>
-        <button class="btn btn-primary">
-          <nuxt-link class="text-white" :to="`/admin/edit/${d._id}`">
-            Edit
-          </nuxt-link>
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <div>
+    <input class="form-control my-2" type="search" v-model="searchValue">
+    <table class="table b-1" v-if="sortedData">
+      <thead class="thead-dark">
+      <tr>
+        <th @click="pickedBy('image')" :class="{active: picked === 'image'}">Image</th>
+        <th @click="pickedBy('name')" :class="{active: picked === 'name'}">Name</th>
+        <th @click="pickedBy('fieldOfCourse')" :class="{active: picked === 'fieldOfCourse'}">FieldOfCourse</th>
+        <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Location</th>
+        <th @click="pickedBy('universities')" :class="{active: picked === 'universities'}">University</th>
+        <th @click="pickedBy('price')" :class="{active: picked === 'price'}">Price</th>
+        <th>Edit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="(d, i) in sortedData" :key="i">
+        <td v-if="d.images[1].url">
+          <img height="50" width="50" :src='"http://localhost:3000" + d.images[1].url' alt="image">
+        </td>
+        <td v-if="d.name">
+          <h4>{{d.name}}</h4>
+        </td>
+        <td v-if="d.fieldOfCourse">
+          <h4>{{d.fieldOfCourse}}</h4>
+        </td>
+        <td v-if="d.location">
+          <h4>{{d.location}}</h4>
+        </td>
+        <td v-if="d.universities">
+          <h4>{{d.universities}}</h4>
+        </td>
+        <td v-if="d.price">
+          <h4>{{d.price}}</h4>
+        </td>
+        <td>
+          <button class="btn btn-primary">
+            <nuxt-link class="text-white" :to="`/admin/edit/${d._id}`">
+              Edit
+            </nuxt-link>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script>
@@ -50,15 +53,14 @@ export default {
       jwtToken: '',
       data: [],
       picked: '',
-      searchValue: ''
+      searchValue: '',
+      inputVal: ''
     }
   },
   async mounted(){
     try {
       if (this.jwtToken){
-        await this.$axios.$get('/api/product/checkJwt', {headers: {
-            Authorization: `Bearer ` + localStorage.getItem('jwt'),
-          }})
+        await this.$store.dispatch('requests/checkJwt')
       }
       this.data = await this.$store.dispatch('requests/getAll', 'courses')
     } catch (e) {
@@ -82,7 +84,7 @@ export default {
         })
         .filter((e) => {
           if(this.searchValue){
-            return e.description.includes(this.searchValue)
+            return e.name.includes(this.searchValue)
           }
           return e
         })

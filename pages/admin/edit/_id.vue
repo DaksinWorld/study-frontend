@@ -13,7 +13,7 @@
       <select v-model="city" class="form-control">
         <option v-for="(name,i) in cityData" :value="name" :key="i">{{ name }}</option>
       </select>
-      <label>Field Of Study</label>
+      <label>Field Of Course</label>
       <select v-model="fieldOfCourse" class="form-control">
         <option v-for="(name,i) in fieldOfCourseData" :value="name" :key="i">{{ name }}</option>
       </select>
@@ -66,12 +66,11 @@ export default {
     this.name = this.data.name
     this.fieldOfCourse = this.data.fieldOfCourse
     this.price = this.data.price
-    this.city = this.data.city
-    this.university = this.data.university
+    this.city = this.data.cities
+    this.university = this.data.universities
     this.location = this.data.location
     this.deadline = this.data.deadline
     this.duration = this.data.duration
-    this.city = this.data.city
     this.file = this.data.images
     this.startDate = this.data.startDate
   },
@@ -90,11 +89,11 @@ export default {
         formData.append('startDate', this.startDate)
         formData.append('description', this.description)
         formData.append('price', this.price)
-        formData.append('university', this.university)
+        formData.append('universities', this.university)
         formData.append('location', this.location)
         formData.append('duration', this.duration)
         formData.append('deadline', this.deadline)
-        formData.append('city', this.city)
+        formData.append('cities', this.city)
 
         await this.$axios.$patch('/api/courses/' + this.$route.params.id, formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
