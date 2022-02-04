@@ -79,6 +79,7 @@ export default {
         formData.append('location', this.location)
         formData.append('duration', this.duration)
         formData.append('foundationCoursePrice', this.foundationCoursePrice)
+        formData.append('createdAt', Date.now().toString())
 
         await this.$axios.$post('/api/product/create', formData, {
           headers: {

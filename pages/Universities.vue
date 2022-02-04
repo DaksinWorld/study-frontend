@@ -1,12 +1,17 @@
 <template>
-  <div>
 
-  </div>
 </template>
 
 <script>
 export default {
-name: "Contacts"
+  data:() => {
+    return {
+      data: []
+    }
+  },
+  async mounted() {
+
+  }
 }
 </script>
 

@@ -1,3 +1,5 @@
+let development = process.env.NODE_ENV !== 'production'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -50,11 +52,11 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: 'https://study-project-2.herokuapp.com'
+    baseUrl: development ? 'http://localhost:3000' : 'https://study-project-2.herokuapp.com'
   },
 
   proxy: {
-    '/images/': { target: 'https://study-project-2.herokuapp.com', pathRewrite: {'^/images/': ''} },
+    '/images': { target: 'http://localhost:3000', pathRewrite: {'^/images': ''} },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

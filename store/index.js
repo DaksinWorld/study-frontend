@@ -10,7 +10,7 @@ export const actions = {
     commit('setMessage', message)
     setTimeout(() => {
       commit('clearMessage')
-    }, 3000)
+    }, 5000)
   },
 }
 

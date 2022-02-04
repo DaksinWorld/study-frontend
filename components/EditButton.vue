@@ -1,8 +1,8 @@
 <template>
   <button class="btn btn-primary">
-    <nuxt-link class="text-white" :to="`/admin/${url}`">
+    <a class="text-white" :href="`/admin/${url}`">
       Edit
-    </nuxt-link>
+    </a>
   </button>
 </template>
 

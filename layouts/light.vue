@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavLight/>
-    <Nuxt/>
+    <nuxt/>
     <Message/>
   </div>
 </template>

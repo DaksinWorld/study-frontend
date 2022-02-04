@@ -17,8 +17,11 @@
       </div>
       <div class="container">
         <div class="find-programs d-flex flex-wrap">
+          <h1 class="find-programs-title mx-2">Find education programs
+          </h1>
+          <FilterCard class="mb-3 mx-2"/>
           <div class="w-33" v-for="(d, i) in data" :key="i">
-            <Card :data="d"/>
+            <Card class="mx-2" :data="d"/>
           </div>
         </div>
       </div>
@@ -46,6 +49,12 @@ export default {
 <style scoped>
 .w-33 {
   width: 50%;
+}
+
+.find-programs-title {
+  font-weight: 700;
+  font-family: 'Montserrat',serif;
+  color: var(--light_yellow);
 }
 
 .about-us-text {

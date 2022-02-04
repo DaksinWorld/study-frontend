@@ -94,6 +94,7 @@ export default {
         formData.append('fieldOfStudy', this.fieldOfStudy)
         formData.append('description', this.description)
         formData.append('price', this.price)
+        formData.append('createdAt', Date.now().toString())
         formData.append('language', this.language)
         formData.append('location', this.location)
         formData.append('duration', this.duration)

@@ -94,6 +94,7 @@ export default {
         formData.append('duration', this.duration)
         formData.append('deadline', this.deadline)
         formData.append('cities', this.city)
+        formData.append('createdAt', Date.now().toString())
 
         await this.$axios.$patch('/api/courses/' + this.$route.params.id, formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),

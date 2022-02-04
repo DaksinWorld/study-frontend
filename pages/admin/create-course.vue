@@ -7,7 +7,7 @@
       <input v-model="deadline" class="form-control" type="text" placeholder="deadline">
       <label>Universities</label>
       <select v-model="university" class="form-control">
-        <option v-for="(name,i) in universitiesData" :value="name" :key="i">{{ name }}</option>
+        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
       </select>
       <label>Cities</label>
       <select v-model="city" class="form-control">
@@ -81,6 +81,7 @@ export default {
         formData.append('duration', this.duration)
         formData.append('deadline', this.deadline)
         formData.append('city', this.city)
+        formData.append('createdAt', Date.now().toString())
 
         await this.$axios.$post('/api/courses/create', formData, {
           headers: {
