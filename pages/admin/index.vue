@@ -43,6 +43,13 @@ export default {
   },
   async mounted(){
     this.jwtToken = localStorage.getItem('jwt')
+    try {
+        await this.$store.dispatch('requests/checkJwt', {headers: {
+            Authorization: `Bearer ${this.jwtToken}`
+        }})
+    } catch (e) {
+        localStorage.removeItem('jwt')
+     }
   },
   methods: {
     pickedValue(val){
