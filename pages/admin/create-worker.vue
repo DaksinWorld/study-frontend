@@ -50,7 +50,7 @@ export default {
         formData.append('description', this.description)
 
 
-        await this.$axios.$post('/api/workers/create', formData, {
+        await this.$axios.$post('/api/workers', formData, {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
             "Content-Type": 'multipart/form-data'
