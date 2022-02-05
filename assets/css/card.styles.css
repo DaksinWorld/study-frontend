@@ -64,7 +64,7 @@ span {
 
 .card-detail-list {
   border-top: rgb(219,222, 236) 1px solid;
-  color: #2B3990;
+  color: rgb(var(--color_primary));
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

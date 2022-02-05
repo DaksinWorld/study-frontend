@@ -2,7 +2,7 @@
   <article class="card" v-if="data">
     <div class="card-top">
       <div class="card-header">
-        <div class="logo"><img height="90" width="90" :src="`https://study-project-2.herokuapp.com${data.images[1].url}`" alt=""></div>
+        <div class="logo"><img height="90" width="90" :src="`http://localhost:3000${data.images[1].url}`" alt=""></div>
           <div class="card-university-info">
             <div class="d-flex flex-column">
               <span class="university-description">{{data.description}}</span>

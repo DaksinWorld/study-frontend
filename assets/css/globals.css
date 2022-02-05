@@ -4,11 +4,11 @@
 :root {
   --white_hex: #ffffff;
   --white: 255, 255, 255;
-  --color_primary: 43,57,144;
-  --green_light: 105,163,142;
-  --middle_lavender: #c4c7e0;
+  --color_primary: 61, 39, 156;
+  --green_light: 124, 220, 157;
+  --middle_lavender: 132, 62, 193;
   --standard_border_radius: 15px;
-  --light_yellow: #FACA71;
+  --light_yellow: #FFF77F;
   --orange: #f5a032;
 }
 
@@ -71,7 +71,7 @@ input[type=file]{
 }
 
 .active {
-  color: green !important;
+  color: rgb(var(--green_light)) !important;
   transition: color .2s linear;
 }
 

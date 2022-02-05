@@ -126,7 +126,7 @@ label {
 }
 
 .pickedBtn {
-  border-bottom: #ffffff solid 2px;
+  border-bottom: var(--white_hex) solid 2px;
 }
 
 </style>

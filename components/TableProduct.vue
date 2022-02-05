@@ -16,7 +16,7 @@
       <tbody>
       <tr v-for="(d, i) in sortedData" :key="i">
         <td v-if="d.images[1].url">
-          <img height="50" width="50" :src='"https://study-project-2.herokuapp.com" + d.images[1].url' alt="image">
+          <img height="50" width="50" :src='"http://localhost:3000" + d.images[1].url' alt="image">
         </td>
         <td v-if="d.name">
           <h4>{{d.name}}</h4>

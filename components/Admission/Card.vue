@@ -62,13 +62,13 @@ export default {
 }
 
 .card-badge__icon-svg{
-  fill: white;
+  fill: var(--white_hex);
 }
 
 .svg {
   width: 60px;
   height: 60px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(var(--white), 0.7);
   border-radius: 50%;
 }
 </style>
