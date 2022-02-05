@@ -16,7 +16,7 @@
       <tbody>
       <tr v-for="(d, i) in sortedData" :key="i">
         <td v-if="d.images[1].url">
-          <img height="50" width="50" :src='"http://localhost:3000" + d.images[1].url' alt="image">
+          <img height="50" width="50" :src='imageUrl + d.images[1].url' alt="image">
         </td>
         <td v-if="d.name">
           <h4>{{d.name}}</h4>
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import {imageUrl} from "../assets/data";
+
 export default {
   data: () => {
     return {
@@ -54,7 +56,8 @@ export default {
       data: [],
       picked: '',
       searchValue: '',
-      inputVal: ''
+      inputVal: '',
+      imageUrl: imageUrl
     }
   },
   async mounted(){

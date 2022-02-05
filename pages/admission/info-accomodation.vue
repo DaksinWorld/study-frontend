@@ -49,9 +49,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.wrapper {
-  padding: 100px 0;
-}
-</style>

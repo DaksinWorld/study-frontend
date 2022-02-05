@@ -2,7 +2,7 @@
   <article class="card" v-if="data">
     <div class="card-top">
       <div class="card-header">
-        <div class="logo"><img height="90" width="90" :src="`http://localhost:3000${data.images[1].url}`" alt=""></div>
+        <div class="logo"><img height="90" width="90" :src="`${imageUrl}${data.images[1].url}`" alt=""></div>
           <div class="card-university-info">
             <div class="d-flex flex-column">
               <span class="university-description">{{data.description}}</span>
@@ -39,8 +39,15 @@
 </template>
 
 <script>
+import {imageUrl} from "../assets/data";
+
 export default {
-  props: ['data']
+  props: ['data'],
+  data: () => {
+    return {
+      imageUrl: imageUrl
+    }
+  }
 }
 </script>
 

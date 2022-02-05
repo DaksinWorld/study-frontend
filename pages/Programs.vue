@@ -2,7 +2,7 @@
   <div class="wrapper grid-temp">
     <div class="toggle-buttons">
       <div class="filter-card">
-        <div class="card p-3">
+        <div class="card t23 p-3">
           <div class="card-toggle">
             <button
               :class="{pickedBtn: pickedValue === 'degree'}"
@@ -66,15 +66,15 @@
               <option value="cost_highest">Cost: Highest first</option>
             </select>
           </div>
-          <span v-if="pickedValue === 'courses'">{{sortedCoursesData.length}} courses were found in {{courses.length}} courses</span>
-          <span v-else>{{products.length}} programs were found in {{sortedData.length}} programs</span>
+          <span class="were-found" v-if="pickedValue === 'courses'">{{sortedCoursesData.length}} courses were found in {{courses.length}} courses</span>
+          <span class="were-found" v-else>{{products.length}} programs were found in {{sortedData.length}} programs</span>
         </div>
         <div class="d-flex flex-wrap flex-row">
           <div v-for="(d, i) in sortedData" :key="i" v-if="pickedValue === 'degree'" class="w-33" >
-            <Card class="mr-3" :data="d"/>
+            <Card class="mr-3 my-2" :data="d"/>
           </div>
           <div class="w-33" v-if="pickedValue === 'courses'" v-for="d in sortedCoursesData" :key="d.name">
-            <CoursesCard class="mr-3" :data="d"/>
+            <CoursesCard class="mr-3 my-2" :data="d"/>
           </div>
         </div>
       </div>
@@ -191,17 +191,13 @@ export default {
 <style scoped>
 
 .pickedBtn {
-  border: 1px solid black;
+  border: 1px solid rgb(var(--color_primary));
 }
 
 label {
   font-family: "Source Sans Pro",serif;
   font-weight: 400;
   color: rgb(var(--color_primary))
-}
-
-.wrapper {
-  padding-top: 100px;
 }
 
 .center {
@@ -214,15 +210,35 @@ label {
   text-align: center;
 }
 
+.t23 {
+  border: 1px solid rgb(var(--color_primary));
+}
 
 .filter-card {
   position: sticky;
+}
+
+.were-found {
+  font-weight: 500;
+  color: rgb(var(--color_primary));
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
 }
 
 .grid-temp {
   display: grid;
   grid-template: 'sidebar catalog' / 23% 76%;
   grid-gap: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .grid-temp {
+    grid-template:
+      'sidebar'
+      'catalog' / 1fr
+  ;
+  }
 }
 
 .first-filter {
@@ -237,6 +253,9 @@ label {
   flex-direction: row;
 }
 
+.wrapper {
+  margin-top: 100px;
+}
 
 
 </style>

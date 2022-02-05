@@ -10,10 +10,21 @@
   --standard_border_radius: 15px;
   --light_yellow: #FFF77F;
   --orange: #f5a032;
+  --gray_light: #afadad;
 }
 
 .w-33 {
   width: 33%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+@media screen and (max-width: 1700px) {
+  .w-33 {
+    width: 50%;
+  }
 }
 
 a, a:hover {
@@ -102,5 +113,8 @@ h4 {
 @media screen and (max-width: 768px) {
   .wrapper {
     width: auto;
+  }
+  .w-33 {
+    width: 100%;
   }
 }

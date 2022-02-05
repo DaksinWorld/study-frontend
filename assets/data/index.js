@@ -2,10 +2,11 @@ export const menuEn = [
   {name: 'Programs', path: 'Programs'},
   {name: 'Universities', path: 'Universities'},
   {name: 'Admission', path: 'Admission'},
-  {name: 'Testimonials', path: 'Testimonials'},
   {name: 'About Us', path: 'AboutUs'},
   {name: 'Contacts', path: 'Contacts'},
 ]
+
+export const imageUrl = 'http://localhost:3000'
 
 export const degree = [
   'Bachelor\'s and Specialist Degree',

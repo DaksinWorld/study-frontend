@@ -3,7 +3,7 @@
     <article class="card" v-if="data">
       <div class="card-top">
         <div class="card-header">
-          <div class="logo"><img height="90" width="90" :src="`http://localhost:3000${data.images[1].url}`" alt=""></div>
+          <div class="logo"><img height="90" width="90" :src="`${imageUrl}${data.images[1].url}`" alt=""></div>
           <div class="card-university-info">
             <div class="d-flex flex-column">
               <span class="university-description">{{data.universities}}</span>
@@ -23,26 +23,61 @@
             <span>{{data.price}}</span>
           </li>
           <li>
-            Duration
-            <span>{{(data.duration / 12).toFixed()}} Years</span>
+            Application deadline
+            <span>{{data.deadline}}</span>
           </li>
           <li>
-            Language
-            <span>{{data.language}}</span>
-          </li>
-          <li>
-            Foundation course
-            <span>{{data.foundationCoursePrice}}</span>
+            Start Date
+            <span>{{data.startDate}}</span>
           </li>
         </ul>
+        <div @click="addToCart" v-if="!isAddedToCart" class="btn btn-primary">
+          Add to Cart
+        </div>
       </div>
     </article>
   </div>
 </template>
 
 <script>
+import { mapGetters} from "vuex";
+import {imageUrl} from "../assets/data";
+
 export default {
-  props: ['data']
+  props: {
+    data: {
+      type: Array,
+      required: true
+    }
+  },
+  data: () => {
+    return {
+      imageUrl: imageUrl
+    }
+  },
+  computed: {
+    ...mapGetters('cart', ['cartList']),
+    isAddedToCart: function () {
+      if (
+        this.cartList.findIndex(
+          item => item._id === this.data._id
+        ) > -1
+      )
+        return true;
+      return false;
+    },
+  },
+  methods: {
+    addToCart() {
+      let saledProduct = {
+        ...this.data,
+        qty: 1
+      }
+
+
+      this.$store.dispatch('cart/addToCart', {product: saledProduct})
+    }
+  }
 }
 </script>
 

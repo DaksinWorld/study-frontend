@@ -2,9 +2,13 @@
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
       <label>Name</label>
-      <input v-model="name" class="form-control" type="text" placeholder="Name">
+      <select v-model="name" class="form-control">
+        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
+      </select>
       <label>Location</label>
-      <input v-model="location" class="form-control" type="text" placeholder="Location">
+      <select v-model="location" class="form-control">
+        <option v-for="(name,i) in cities" :value="name" :key="i">{{ name }}</option>
+      </select>
       <label>Description</label>
       <input v-model="description" class="form-control" type="text" placeholder="Description">
       <label>Int'l Students</label>
@@ -28,6 +32,8 @@
 </template>
 
 <script>
+import {city, universityData} from "../../assets/data";
+
 export default {
   layout: 'admin',
   data: () => {
@@ -40,7 +46,9 @@ export default {
       intStudents: '',
       founded: '',
       file: '',
-      faculty: ''
+      faculty: '',
+      universityData: universityData,
+      cities: city
     }
   },
   methods: {

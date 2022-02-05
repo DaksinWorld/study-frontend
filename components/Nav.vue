@@ -7,6 +7,7 @@
           <div v-for="m in menu" :key="m.name">
             <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
           </div>
+          <CartBtn :theme="'dark'"/>
         </div>
       </div>
     </div>
