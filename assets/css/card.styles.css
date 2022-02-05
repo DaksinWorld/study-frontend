@@ -9,7 +9,7 @@ span {
 }
 
 .card {
-  background-color: rgb(var(--middle_lavender));
+  background-color: #EEEFF6;
   border-radius: 1em;
   -webkit-box-shadow: inset 0 0 0 0.1em var(--middle_lavender);
   box-shadow: inset 0 0 0 0.1em var(--middle_lavender);
