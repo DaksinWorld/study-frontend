@@ -16,16 +16,16 @@
         </nuxt-link>
       </div>
       <div class="container">
-        <h1 class="find-programs-title m-2">Find education programs
+        <h1 class="find-programs-title m-4">Find education programs
         </h1>
         <div class="find-programs d-flex flex-wrap">
           <div class="w-33 m-2" v-for="(d, i) in data" :key="i">
             <Card class="mx-2" :data="d"/>
           </div>
-          <nuxt-link class="searchMore m-2" to="/Programs">
-            <button class="btn">Search more...</button>
-          </nuxt-link>
         </div>
+        <nuxt-link class="searchMore m-2" to="/Programs">
+          <button class="btn">Search more...</button>
+        </nuxt-link>
       </div>
     </main>
   </div>
@@ -50,7 +50,7 @@ export default {
 </script>
 <style scoped>
 .w-33 {
-  width: 50%;
+  width: 38%;
 }
 
 .find-programs-title {
@@ -111,12 +111,23 @@ main {
   background-color: #b5b8d6;
   transition: background-color .2s linear;
 }
+.btn {
+   font-size: 20px;
+   font-weight: 600;
+   color: rgb(var(--green_light));
+ }
 
 .hello-circle {
   padding: 10px 26px;
   background-color: rgb(var(--green_light));
   font-size: 50px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1024px){
+  .hello-main-page__inner{
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -128,9 +139,5 @@ main {
   }
 }
 
-.btn {
-  font-size: 20px;
-  font-weight: 600;
-  color: rgb(var(--green_light));
-}
+
 </style>

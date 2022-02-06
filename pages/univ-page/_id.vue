@@ -125,4 +125,13 @@ li span {
   font-family: Montserrat;
 }
 
+
+@media screen and (max-width: 768px){
+  .img {
+    width: 330px;
+    height: 330px;
+    margin: 10px;
+  }
+}
+
 </style>

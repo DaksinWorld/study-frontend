@@ -19,7 +19,7 @@ name: "Header"
   display: flex;
   flex-direction: row;
   padding: 100px 0;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 header {
@@ -48,8 +48,8 @@ header {
     padding: 0 !important;
   }
 
-  .wrapper {
-    justify-content: center;
+  .my-wrapper {
+    justify-content: space-between;
   }
 }
 

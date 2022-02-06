@@ -76,7 +76,7 @@ nav:before {
 
 .menus {
   display: none;
-  flex-direction: row;
+  flex-direction: column;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -87,11 +87,13 @@ nav:before {
   padding: 15px;
   align-items: baseline;
   align-content: baseline;
-  justify-content: space-between;
+  justify-content: start;
 }
 
 .menus div a {
   color: rgb(var(--color_primary));
+  padding: 10px;
+  font-size: 18px;
 }
 
 .close {
