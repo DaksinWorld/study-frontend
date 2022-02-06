@@ -82,18 +82,18 @@ export default {
   background-color: rgb(var(--color_primary));
   border: 0;
   border-radius: var(--standard_border_radius);
-  height: 320px;
+  height: 350px;
 }
 
 .grid-area {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
   padding: 20px;
 }
 
 ul {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
 }
 
 li {

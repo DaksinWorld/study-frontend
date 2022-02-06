@@ -36,7 +36,7 @@ export default {
 
 .catalog {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
 @media screen and (max-width: 1200px){
