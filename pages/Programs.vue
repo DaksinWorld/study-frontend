@@ -29,6 +29,13 @@
                   <option v-for="(name,i) in fieldOfStudy" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
+              <div class="fieldOfStudy">
+                <label for="Programs">Programs</label>
+                <select v-model="programsValue" id="Programs" class="form-control">
+                  <option value="">All Fields of study</option>
+                  <option v-for="(name,i) in programsData" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
             </div>
             <div class="secondFilters" v-else>
               <div class="degree">
@@ -53,7 +60,6 @@
     <div class="catalog">
       <div class="center" v-if="isLoading">
         <LoaderPure class="loader"/>
-        <span>{{pickedValue}}</span>
       </div>
       <div v-else class="d-flex flex-wrap flex-column">
         <div class="catalog-sort my-2">
@@ -84,7 +90,7 @@
 
 <script>
 import CoursesCard from "../components/CoursesCard";
-import {degree, fieldOfCourses, fieldOfStudy, universityData} from "../assets/data";
+import {degree, fieldOfCourses, fieldOfStudy, programs, universityData} from "../assets/data";
 export default {
   components: {CoursesCard},
   layout: 'light',
@@ -100,11 +106,13 @@ export default {
       degreeVal: '',
       fieldCoursesValue:'',
       fieldStudyValue:'',
+      programsValue:'',
 
       degree: degree,
       fieldOfStudy: fieldOfStudy,
       fieldOfCourses: fieldOfCourses,
-      universities: universityData
+      universities: universityData,
+      programsData: programs
     }
   },
   async mounted() {
@@ -113,6 +121,16 @@ export default {
       this.products = await this.$store.dispatch('requests/getAll', 'product')
       this.courses = await this.$store.dispatch('requests/getAll', 'courses')
       this.isLoading = false
+
+      const field = this.$route.query.field
+      const univ = this.$route.query.univ
+
+      if(field && univ){
+        this.pickedValue = 'courses'
+        this.universitiesValue = univ
+        this.fieldCoursesValue = field
+      }
+
     } catch (e) {
 
     }
@@ -133,6 +151,13 @@ export default {
               return d.fieldOfStudy.includes(FIELDOFSTUDY)
             }
             return d
+        })
+        .filter((d) => {
+          const PROGRAMS = this.programsValue
+          if(PROGRAMS) {
+            return d.programs.includes(PROGRAMS)
+          }
+          return d
         })
         .sort((a,b) => {
           const sortValue = this.sortBy

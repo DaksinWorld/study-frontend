@@ -5,14 +5,14 @@
       v-if="cartList.length > 0"
       key="noEmpty"
     >
-      <div class="w-100">
+      <div class="w-100 p-5">
         <div class="cart-table-container">
           <table class="table table-cart">
             <thead>
             <tr>
-              <th class="thumbnail-col"></th>
-              <th class="product-col">Продукт</th>
-              <th class="price-col">Цена</th>
+              <th class="thumbnail-col">Image</th>
+              <th class="product-col">Name</th>
+              <th class="price-col">Price</th>
             </tr>
             </thead>
 
@@ -55,70 +55,15 @@
     </div>
 
     <div
-      class="box-content"
+      class="box-content text-center"
       v-else
     >
-      <table
-        class="table-cart"
-        data-pagination="no"
-        data-per-page="5"
-        data-page="1"
-        data-id
-        data-token
-      >
-        <thead class="d-none">
-        <tr>
-          <th class="product-thumbnail"></th>
-
-          <th class="product-name">
-            <span class="nobr">Product</span>
-          </th>
-
-          <th class="product-price">
-            <span class="nobr">price</span>
-          </th>
-
-          <th class="product-stock-status">
-            <span class="nobr">Stock status</span>
-          </th>
-
-          <th class="product-add-to-cart">
-            <span class="nobr">Actions</span>
-          </th>
-        </tr>
-        </thead>
-
-        <tbody class="cart-items-wrapper">
-        <tr class="border-0 py-0">
-          <td
-            colspan="6"
-            class="px-3 py-2 text-center"
-          >
-            <i class="icon-bag-2 cart-empty"></i>
-          </td>
-        </tr>
-        <tr class="border-0 py-0">
-          <td
-            colspan="6"
-            class="px-3 py-2 text-center cart-empty"
-          >
-            No products added to the
-            cart
-          </td>
-        </tr>
-        <tr class="border-0 py-0">
-          <td
-            colspan="6"
-            class="px-3 text-center"
-          >
-            <a
-              href="/Programs"
-              class="btn btn-go-shop"
-            >В магазин</a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <h3 class="h3">No products were added to cart</h3>
+      <nuxt-link to="/programs">
+        <button class="btn btn-primary">
+          To Catalog
+        </button>
+      </nuxt-link>
     </div>
 
     <div class="mb-6"></div>
@@ -181,5 +126,26 @@ export default {
 <style scoped>
 .wrapper {
   padding: 100px 0;
+}
+
+.table thead th {
+  border: 0;
+}
+
+th, td {
+  font-size: 15px;
+}
+
+.row {
+  margin: 0;
+}
+
+.table td, .table th {
+  border-top: 1px solid rgb(var(--color_primary));
+}
+
+.h3 {
+  font-weight: 600;
+  color: rgb(var(--color_primary));
 }
 </style>

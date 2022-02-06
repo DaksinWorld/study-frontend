@@ -1,17 +1,28 @@
 <template>
-  <nav>
-    <div class="wrapper">
-      <div class="d-flex">
-        <nuxt-link to="/"><h3>Logo</h3></nuxt-link>
-        <div class="right d-flex">
-          <div v-for="m in menu" :key="m.name">
-            <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+  <div>
+    <nav>
+      <div class="wrapper">
+        <div class="d-flex">
+          <nuxt-link to="/"><h3>Logo</h3></nuxt-link>
+          <div class="right d-flex">
+            <div class="menu-opened">
+              <div v-for="m in menu" :key="m">
+                <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+              </div>
+            </div>
+            <CartBtn :theme="'dark'" class="mx-3"/>
+            <img @click="openMenu" class="menu" width="29px" height="22px" src="/white-menu.svg" alt="menu">
           </div>
-          <CartBtn :theme="'dark'"/>
         </div>
       </div>
+    </nav>
+    <div class="menus">
+      <div v-for="m in menu" :key="m">
+        <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+      </div>
+      <button @click="closeMenu" class="close">x</button>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
@@ -22,6 +33,18 @@ export default {
     return {
       menu: menuEn
     }
+  },
+  methods: {
+    openMenu() {
+      const menus = document.querySelector('.menus')
+
+      menus.style.display = 'flex'
+    },
+    closeMenu() {
+      const menus = document.querySelector('.menus')
+
+      menus.style.display = 'none'
+    }
   }
 }
 </script>
@@ -31,7 +54,7 @@ export default {
 .links {
   font-size: 16px;
   font-family: 'Source Sans Pro';
-  color: white;
+  color: rgb(var(--white));
   font-weight: 600;
   margin: 0 10px;
 }
@@ -45,4 +68,43 @@ nav:before {
   align-items: center;
   justify-content: space-between;
 }
+
+.menu-opened {
+  display: flex;
+  flex-direction: row;
+}
+
+.menus {
+  display: none;
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  background-color: white;
+  padding: 15px;
+  align-items: baseline;
+  align-content: baseline;
+  justify-content: space-between;
+}
+
+.menus div a {
+  color: rgb(var(--color_primary));
+}
+
+.close {
+  background: none;
+  border: 0;
+  margin-left: 20px;
+  color: rgb(var(--color_primary));
+}
+
+@media screen and (max-width: 768px) {
+  .menu-opened {
+    display: none;
+  }
+}
+
 </style>

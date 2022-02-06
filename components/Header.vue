@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="wrapper">
+    <div class="my-wrapper">
       <h1 class="header-text">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam delectus dolorum inventore mollitia, nisi nobis obcaecati perspiciatis repellendus soluta?
       </h1>
@@ -15,7 +15,7 @@ name: "Header"
 </script>
 
 <style scoped>
-.wrapper {
+.my-wrapper {
   display: flex;
   flex-direction: row;
   padding: 100px 0;
@@ -23,7 +23,7 @@ name: "Header"
 }
 
 header {
-  height: 700px;
+  padding: 0 10px 0px 10px;
   width: 100%;
   background-color: rgb(var(--color_primary));
   align-items: center;
@@ -35,7 +35,41 @@ header {
   border-radius: 50%;
   background-size: cover;
   align-items: center;
+}
 
+@media screen and (max-width: 1054px){
+  .header-image {
+    width: 400px;
+    height: 400px;
+  }
+  .header-text {
+    font-size: 40px !important;
+    margin: 0;
+    padding: 0 !important;
+  }
+
+  .wrapper {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 800px){
+  .header-image {
+    width: 350px;
+    height: 350px;
+  }
+  .header-text {
+    font-size: 36px !important;
+    margin: 0;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  .my-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .header-text {

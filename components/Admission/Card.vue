@@ -71,4 +71,12 @@ export default {
   background: rgba(var(--white), 0.7);
   border-radius: 50%;
 }
+
+@media screen and (max-width: 768px){
+   .card {
+     height: auto;
+     margin: 10px;
+   }
+}
+
 </style>

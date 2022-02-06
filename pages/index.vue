@@ -16,13 +16,15 @@
         </nuxt-link>
       </div>
       <div class="container">
+        <h1 class="find-programs-title m-2">Find education programs
+        </h1>
         <div class="find-programs d-flex flex-wrap">
-          <h1 class="find-programs-title mx-2">Find education programs
-          </h1>
-          <FilterCard class="mb-3 mx-2"/>
-          <div class="w-33" v-for="(d, i) in data" :key="i">
+          <div class="w-33 m-2" v-for="(d, i) in data" :key="i">
             <Card class="mx-2" :data="d"/>
           </div>
+          <nuxt-link class="searchMore m-2" to="/Programs">
+            <button class="btn">Search more...</button>
+          </nuxt-link>
         </div>
       </div>
     </main>
@@ -115,5 +117,20 @@ main {
   background-color: rgb(var(--green_light));
   font-size: 50px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+  .find-programs {
+    flex-direction: column;
+  }
+  .w-33 {
+    width: 100%;
+  }
+}
+
+.btn {
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(var(--green_light));
 }
 </style>

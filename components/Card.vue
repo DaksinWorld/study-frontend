@@ -34,18 +34,50 @@
           <span>{{data.foundationCoursePrice}}</span>
         </li>
       </ul>
+      <div @click="addToCart" v-if="!isAddedToCart" class="btn btn-primary">
+        Add to Cart
+      </div>
+      <nuxt-link v-else to="/cart">
+        <div class="btn btn-primary">
+          Go To Cart
+        </div>
+      </nuxt-link>
     </div>
   </article>
 </template>
 
 <script>
 import {imageUrl} from "../assets/data";
+import {mapGetters} from "vuex";
 
 export default {
   props: ['data'],
   data: () => {
     return {
       imageUrl: imageUrl
+    }
+  },
+  computed: {
+    ...mapGetters('cart', ['cartList']),
+    isAddedToCart: function () {
+      if (
+        this.cartList.findIndex(
+          item => item._id === this.data._id
+        ) > -1
+      )
+        return true;
+      return false;
+    },
+  },
+  methods: {
+    addToCart() {
+      let saledProduct = {
+        ...this.data,
+        qty: 1
+      }
+
+
+      this.$store.dispatch('cart/addToCart', {product: saledProduct})
     }
   }
 }

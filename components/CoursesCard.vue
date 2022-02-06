@@ -34,6 +34,11 @@
         <div @click="addToCart" v-if="!isAddedToCart" class="btn btn-primary">
           Add to Cart
         </div>
+        <nuxt-link v-else to="/cart">
+          <div class="btn btn-primary">
+            Go To Cart
+          </div>
+        </nuxt-link>
       </div>
     </article>
   </div>
