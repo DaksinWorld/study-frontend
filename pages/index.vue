@@ -18,9 +18,10 @@
       <div class="container">
         <h1 class="find-programs-title m-4">Find education programs
         </h1>
+        <FilterCard class="m-2"/>
         <div class="find-programs d-flex flex-wrap">
-          <div class="w-33 m-2" v-for="(d, i) in data" :key="i">
-            <Card class="mx-2" :data="d"/>
+          <div class="w-33" v-for="(d, i) in data" :key="i">
+            <Card class="m-2" :data="d"/>
           </div>
         </div>
         <nuxt-link class="searchMore m-2" to="/Programs">
@@ -50,13 +51,17 @@ export default {
 </script>
 <style scoped>
 .w-33 {
-  width: 38%;
+  width: 33%;
 }
 
 .find-programs-title {
   font-weight: 700;
   font-family: 'Montserrat',serif;
-  color: var(--light_yellow);
+  color: var(--dark_blue);
+}
+
+.searchMore {
+  color: var(--dark_blue) !important;
 }
 
 .about-us-text {

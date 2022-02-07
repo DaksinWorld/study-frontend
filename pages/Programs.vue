@@ -7,11 +7,13 @@
             <button
               :class="{pickedBtn: pickedValue === 'degree'}"
               @click="setPickedValue('degree')"
-              class="btn">DEGREE PROGRAMS</button>
+              class="btn">DEGREE PROGRAMS
+            </button>
             <button
               @click="setPickedValue('courses')"
               :class="{pickedBtn: pickedValue === 'courses'}"
-              class="btn">FOUNDATION COURSES</button>
+              class="btn">FOUNDATION COURSES
+            </button>
           </div>
           <div class="filters">
             <div class="firstFilters" v-if="pickedValue === 'degree'">
@@ -72,11 +74,12 @@
               <option value="cost_highest">Cost: Highest first</option>
             </select>
           </div>
-          <span class="were-found" v-if="pickedValue === 'courses'">{{sortedCoursesData.length}} courses were found in {{courses.length}} courses</span>
-          <span class="were-found" v-else>{{products.length}} programs were found in {{sortedData.length}} programs</span>
+          <span class="were-found" v-if="pickedValue === 'courses'">{{ sortedCoursesData.length }} courses were found in {{ courses.length }} courses</span>
+          <span class="were-found"
+                v-else>{{ products.length }} programs were found in {{ sortedData.length }} programs</span>
         </div>
         <div class="d-flex flex-wrap flex-row">
-          <div v-for="(d, i) in sortedData" :key="i" v-if="pickedValue === 'degree'" class="w-33" >
+          <div v-for="(d, i) in sortedData" :key="i" v-if="pickedValue === 'degree'" class="w-33">
             <Card class="mr-3 my-2" :data="d"/>
           </div>
           <div class="w-33" v-if="pickedValue === 'courses'" v-for="d in sortedCoursesData" :key="d.name">
@@ -91,6 +94,7 @@
 <script>
 import CoursesCard from "../components/CoursesCard";
 import {degree, fieldOfCourses, fieldOfStudy, programs, universityData} from "../assets/data";
+
 export default {
   components: {CoursesCard},
   layout: 'light',
@@ -103,10 +107,12 @@ export default {
       pickedValue: 'degree',
 
       universitiesValue: '',
+      fieldCoursesValue: '',
+
       degreeVal: '',
-      fieldCoursesValue:'',
-      fieldStudyValue:'',
-      programsValue:'',
+      fieldStudyValue: '',
+
+      programsValue: '',
 
       degree: degree,
       fieldOfStudy: fieldOfStudy,
@@ -125,7 +131,17 @@ export default {
       const field = this.$route.query.field
       const univ = this.$route.query.univ
 
-      if(field && univ){
+      const degree = this.$route.query.degree
+
+      const type = this.$route.query.type
+      const fieldStudy = this.$route.query.fieldStudy
+      const programs = this.$route.query.program
+
+      if (type === 'degree') {
+        this.degreeVal = degree
+        this.fieldStudyValue = fieldStudy
+        this.programsValue = programs
+      } else if (type === 'courses') {
         this.pickedValue = 'courses'
         this.universitiesValue = univ
         this.fieldCoursesValue = field
@@ -136,36 +152,36 @@ export default {
     }
   },
   computed: {
-    sortedData(){
+    sortedData() {
       return this.products
         .filter((d) => {
-            const DEGREE = this.degreeVal
-            if(DEGREE) {
-              return d.degree.includes(DEGREE)
-            }
-            return d
+          const DEGREE = this.degreeVal
+          if (DEGREE) {
+            return d.degree.includes(DEGREE)
+          }
+          return d
         })
         .filter((d) => {
-            const FIELDOFSTUDY = this.fieldStudyValue
-            if(FIELDOFSTUDY) {
-              return d.fieldOfStudy.includes(FIELDOFSTUDY)
-            }
-            return d
+          const FIELDOFSTUDY = this.fieldStudyValue
+          if (FIELDOFSTUDY) {
+            return d.fieldOfStudy.includes(FIELDOFSTUDY)
+          }
+          return d
         })
         .filter((d) => {
           const PROGRAMS = this.programsValue
-          if(PROGRAMS) {
+          if (PROGRAMS) {
             return d.programs.includes(PROGRAMS)
           }
           return d
         })
-        .sort((a,b) => {
+        .sort((a, b) => {
           const sortValue = this.sortBy
-          if(sortValue === 'newest') {
+          if (sortValue === 'newest') {
             return a.createdAt - b.createdAt ? -1 : 1
           } else if (sortValue === 'oldest') {
             return a.createdAt - b.createdAt ? 1 : -1
-          } else if(sortValue === 'cost_highest') {
+          } else if (sortValue === 'cost_highest') {
             return parseFloat(a.price) - parseFloat(b.price) ? -1 : 1
           } else {
             return parseFloat(a.price) - parseFloat(b.price) ? 1 : -1
@@ -176,37 +192,37 @@ export default {
       return this.courses
         .filter((d) => {
           const UNIV = this.universitiesValue
-          if(UNIV) {
+          if (UNIV) {
             return d.universities.includes(UNIV)
           }
           return d
         })
         .filter((d) => {
           const fieldCourses = this.fieldCoursesValue
-          if(fieldCourses) {
+          if (fieldCourses) {
             return d.fieldOfCourse.includes(fieldCourses)
           }
           return d
         })
-        .sort((a,b) => {
+        .sort((a, b) => {
           const sortValue = this.sortBy
-          if(sortValue === 'newest') {
+          if (sortValue === 'newest') {
             return a.createdAt - b.createdAt ? -1 : 1
           } else if (sortValue === 'oldest') {
             return a.createdAt - b.createdAt ? 1 : -1
-          } else if(sortValue === 'cost_highest') {
+          } else if (sortValue === 'cost_highest') {
             return parseFloat(a.price) - parseFloat(b.price) ? -1 : 1
           } else {
             return parseFloat(a.price) - parseFloat(b.price) ? 1 : -1
           }
         })
     },
-    catalog(){
+    catalog() {
       return this.$route.query.type
     }
   },
   methods: {
-    setPickedValue(text){
+    setPickedValue(text) {
       this.pickedValue = text
     }
   }
@@ -220,7 +236,7 @@ export default {
 }
 
 label {
-  font-family: "Source Sans Pro",serif;
+  font-family: "Source Sans Pro", serif;
   font-weight: 400;
   color: rgb(var(--color_primary))
 }
@@ -261,8 +277,7 @@ label {
   .grid-temp {
     grid-template:
       'sidebar'
-      'catalog' / 1fr
-  ;
+      'catalog' / 1fr;
   }
 }
 

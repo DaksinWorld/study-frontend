@@ -3,7 +3,9 @@
     <nav>
       <div class="wrapper">
         <div class="d-flex">
-          <a href="/"><h3>Logo</h3></a>
+          <a href="/">
+            <img src="/logo.svg" width="100" height="100" alt="logo">
+          </a>
           <div class="right d-flex">
             <div class="menu-opened">
               <div v-for="m in menu" :key="m">

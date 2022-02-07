@@ -3,7 +3,9 @@
     <nav>
       <div class="wrapper">
         <div class="d-flex">
-          <nuxt-link to="/"><h3>Logo</h3></nuxt-link>
+          <nuxt-link to="/">
+            <img src="/logo.svg" width="100" height="100" alt="logo">
+          </nuxt-link>
           <div class="right d-flex">
             <div class="menu-opened">
               <div v-for="m in menu" :key="m">

@@ -26,10 +26,13 @@
             <option v-for="(name,i) in fieldOfStudy" :value="name" :key="i">{{ name }}</option>
           </select>
         </div>
+        <label for="Programs">Programs</label>
+        <select v-model="programsValue" id="Programs" class="form-control">
+          <option value="">All Fields of study</option>
+          <option v-for="(name,i) in programsData" :value="name" :key="i">{{ name }}</option>
+        </select>
       </div>
       <div class="secondFilters" v-else>
-        {{fieldCoursesValue}}
-        {{universitiesValue}}
         <div class="degree">
           <label for="fieldOfStudy2">Field Of Study</label>
           <select v-model="fieldCoursesValue" id="fieldOfStudy2" class="form-control">
@@ -51,7 +54,7 @@
 </template>
 
 <script>
-import {degree, fieldOfCourses, fieldOfStudy, universityData} from "../../assets/data";
+import {degree, fieldOfCourses, fieldOfStudy, programs, universityData} from "../../assets/data";
 
 export default {
   data: () => {
@@ -59,9 +62,13 @@ export default {
       fieldOfStudy: fieldOfStudy,
       fieldOfCourses: fieldOfCourses,
       universities: universityData,
-      pickedValue: 'degree',
       degree: degree,
+      programsData: programs,
+
+      pickedValue: 'degree',
+
       universitiesValue: '',
+      programsValue: '',
       fieldCoursesValue: '',
       fieldStudyValue: '',
       degreeVal: '',
@@ -70,14 +77,13 @@ export default {
   methods: {
     HandleSubmit() {
       if(this.pickedValue === 'degree') {
-        this.$router.push(`/programs/?degree=${this.degreeVal}&fieldStudy=${this.fieldStudyValue}&type=degree`)
+        this.$router.push(`/programs/?degree=${this.degreeVal}&fieldStudy=${this.fieldStudyValue}&program=${this.programsValue}&type=degree`)
       } else {
-        this.$router.push(`/programs/?univ=${this.universitiesValue}&fieldCourses=${this.fieldCoursesValue}&type=courses`)
+        this.$router.push(`/programs/?univ=${this.universitiesValue}&field=${this.fieldCoursesValue}&type=courses`)
       }
     },
     selectPickedValue(text){
       this.pickedValue = text
-      this.$router.push(`/programs/?type=${text}`)
     }
   },
   mounted() {
@@ -94,14 +100,14 @@ button[type=submit] {
 }
 
 .card {
-  background: var(--light_yellow);
+  background: var(--dark_blue);
   width: 100%;
   border-radius: 15px;
 }
 
 label {
   font-family: "Source Sans Pro",serif;
-  color: rgb(var(--color_primary));
+  color: var(--white_hex);
   font-size: 20px;
 }
 
@@ -115,7 +121,7 @@ label {
   outline: 0;
   width: 49.5%;
   font-family: 'Source Sans Pro';
-  color: rgb(var(--color_primary));
+  color: var(--white_hex);
   font-weight: 700;
   font-size: 14px;
   text-align: left;

@@ -1,25 +1,60 @@
 <template>
   <header>
-    <div class="my-wrapper">
-      <h1 class="header-text">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam delectus dolorum inventore mollitia, nisi nobis obcaecati perspiciatis repellendus soluta?
-      </h1>
-      <img class="header-image" src="https://gt.education/img/graphic/in-circles/biology-scientist/1-h400.webp" alt="scientist">
+    <div class="wrapper">
+      <div class="text-white">
+        <span>Universities:</span>
+        <animated-number
+          :value="70"
+          :formatValue="formatToPrice"
+          :duration="3200"
+        />
+      </div>
+      <div class="text-white">
+        <span>Students:</span>
+        <animated-number
+          :value="700"
+          :formatValue="formatToPrice"
+          :duration="3200"
+        />
+      </div>
+      <div class="text-white">
+        <span>Programs:</span>
+        <animated-number
+          :value="168"
+          :formatValue="formatToPrice"
+          :duration="3200"
+        />
+      </div>
+
+<!--      <img class="header-image" src="https://gt.education/img/graphic/in-circles/biology-scientist/1-h400.webp" alt="scientist">-->
     </div>
   </header>
 </template>
 <script>
-export default {
-name: "Header"
+import AnimatedNumber from 'animated-number-vue'
+
+export default  {
+  components: {
+    AnimatedNumber
+  },
+  data(){
+    return {
+      value: 1000
+    }
+  },
+  methods: {
+    formatToPrice(value) {
+      return `${value.toFixed()}`;
+    }
+  }
 }
 </script>
 
 <style scoped>
-.my-wrapper {
-  display: flex;
-  flex-direction: row;
+.wrapper {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
   padding: 100px 0;
-  justify-content: center;
 }
 
 header {
@@ -29,53 +64,18 @@ header {
   align-items: center;
 }
 
-.header-image {
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background-size: cover;
-  align-items: center;
+.text-white {
+  font-weight: 600;
+  font-size: 30px;
+  font-family: 'Montserrat';
 }
+
 
 @media screen and (max-width: 1054px){
-  .header-image {
-    width: 400px;
-    height: 400px;
-  }
-  .header-text {
-    font-size: 40px !important;
-    margin: 0;
-    padding: 0 !important;
-  }
 
-  .my-wrapper {
+  .wrapper {
     justify-content: space-between;
   }
-}
-
-@media screen and (max-width: 800px){
-  .header-image {
-    width: 350px;
-    height: 350px;
-  }
-  .header-text {
-    font-size: 36px !important;
-    margin: 0;
-    padding: 0 !important;
-    width: 100% !important;
-  }
-
-  .my-wrapper {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
-.header-text {
-  padding: 50px 0 0 0 ;
-  width: 42%;
-  font-size: 52px;
 }
 
 h1 {
