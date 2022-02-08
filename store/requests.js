@@ -8,7 +8,9 @@ export function state() {
 export const actions = {
   async getAll({commit}, payload) {
     try {
-      const res = await this.$axios.$get('/api/' + payload)
+      const res = await this.$axios.$get('/api/' + payload, {
+        "Access-Control-Allow-Origin": "http://80.87.111.180:3000"
+      })
       return res
     } catch (e) {
       console.log(e)
