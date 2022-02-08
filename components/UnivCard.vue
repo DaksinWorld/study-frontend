@@ -82,7 +82,7 @@ export default {
   background-color: rgb(var(--color_primary));
   border: 0;
   border-radius: var(--standard_border_radius);
-  height: 350px;
+  height: 400px;
 }
 
 .grid-area {

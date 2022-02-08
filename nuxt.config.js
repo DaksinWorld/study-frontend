@@ -52,7 +52,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: development ? 'http://localhost:3000' : 'https://study-project-2.herokuapp.com'
+    baseUrl: development ? 'http://localhost:3000' : 'http://80.87.111.180:3000'
   },
 
   proxy: {
