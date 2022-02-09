@@ -75,6 +75,7 @@ header {
 
   .wrapper {
     justify-content: space-between;
+    grid-template-columns: 100%;
   }
 }
 

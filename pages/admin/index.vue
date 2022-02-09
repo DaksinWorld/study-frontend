@@ -6,10 +6,13 @@
       <CreateBtn :url="`/admin/create-course`" :text="'Create New Course'"/>
       <CreateBtn :url="`/admin/create-worker`" :text="'Create New Worker'"/>
       <CreateBtn :url="`/admin/create-univ`" :text="'Create New University'"/>
+      <CreateBtn :url="`/admin/create-admission`" :text="'Create New Admission'"/>
       <button class="btn btn-dark" @click="pickedValue('products')">Products</button>
       <button class="btn btn-dark" @click="pickedValue('courses')">Courses</button>
       <button class="btn btn-dark" @click="pickedValue('workers')">Workers</button>
       <button class="btn btn-dark" @click="pickedValue('univ')">Universities</button>
+      <button class="btn btn-dark" @click="pickedValue('admission')">Admissions</button>
+      <button class="btn btn-dark" @click="pickedValue('request')">Requests</button>
       <div v-if="picked === 'products'">
         <h2>Products</h2>
         <TableProduct/>
@@ -22,15 +25,24 @@
         <h2>Workers</h2>
         <TableWorkers/>
       </div>
-      <div v-else>
+      <div v-else-if="picked === 'univ'">
         <h2>University</h2>
         <TableUniv/>
+      </div>
+      <div v-else-if="picked === 'admission'">
+        <h2>Admission</h2>
+        <TableAdmission/>
+      </div>
+      <div v-else>
+        <h2>Requests</h2>
+        <TableRequests/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   layout: 'admin',
   data: () => {
@@ -44,9 +56,7 @@ export default {
   async mounted(){
     this.jwtToken = localStorage.getItem('jwt')
     try {
-        await this.$store.dispatch('requests/checkJwt', {headers: {
-            Authorization: `Bearer ${this.jwtToken}`
-        }})
+        await this.$store.dispatch('requests/checkJwt')
     } catch (e) {
         localStorage.removeItem('jwt')
      }

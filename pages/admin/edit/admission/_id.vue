@@ -2,30 +2,23 @@
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
       <label>Name</label>
-      <select v-model="name" class="form-control">
-        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
-      </select>
-      <label>Location</label>
-      <select v-model="location" class="form-control">
-        <option v-for="(name,i) in cities" :value="name" :key="i">{{ name }}</option>
-      </select>
+      <input v-model="name" class="form-control" type="text" placeholder="Name">
       <label>Description</label>
       <input v-model="description" class="form-control" type="text" placeholder="Description">
-      <label>Int'l Students</label>
-      <input v-model="intStudents" class="form-control" type="text" placeholder="Description">
-      <label>Founded</label>
-      <input v-model="founded" class="form-control" type="text" placeholder="Description">
-      <label>Faculty</label>
-      <input v-model="faculty" class="form-control" type="text" placeholder="Description">
-      <label>Total Students</label>
-      <input v-model="totalStudents" class="form-control" type="text" placeholder="Subtitle">
+      <label>Html Text</label>
+      <client-only placeholder="loading...">
+        <ckeditor-nuxt v-model="vhtml"  />
+      </client-only>
+      <label>Color</label>
+      <input v-model="color" class="form-control" type="color" placeholder="Description">
+      <label>Icon Svg</label>
+      <input v-model="iconUrl" class="form-control" type="text" placeholder="Description">
       <label>Image</label>
       <label>Image</label>
       <label for="file-upload" class="custom-file-upload">
         Upload Image
       </label>
       <input id="file-upload" @change="getFile" class="form-control" type="file" ref="file">
-      <img v-if="data.images" width="100" height="130" :src="`/images${data.images[1].url}`" alt="image">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger my-5" @click="deleteProduct">Delete</button>
@@ -33,36 +26,34 @@
 </template>
 
 <script>
-import { universityData} from "@/assets/data";
-import {city} from "../../../../assets/data";
+
+import {imageUrl} from "../../../../assets/data";
 
 export default {
   layout: 'admin',
+  components: {
+    'ckeditor-nuxt': () => { if (process.client) { return import('@blowstack/ckeditor-nuxt') } },
+  },
   data: () => {
     return {
       data: [],
       description: '',
       name: '',
-      location: '',
-      totalStudents: '',
-      intStudents: '',
-      founded: '',
       file: '',
-      faculty: '',
-      universityData: universityData,
-      cities: city
+      color: '',
+      vhtml: '',
+      iconUrl: '',
+      imageUrl: imageUrl
     }
   },
   async mounted() {
-    this.data = await this.$axios.$get('/api/univ/find/' + this.$route.params.id)
+    this.data = await this.$axios.$get('/api/admission/find/' + this.$route.params.id)
     const data = this.data
     this.description = data.description
     this.name = data.name
-    this.location = data.location
-    this.faculty = data.faculty
-    this.totalStudents = data.totalStudents
-    this.intStudents = data.intStudents
-    this.founded = data.founded
+    this.vhtml = data.htmlText
+    this.color = data.color
+    this.iconUrl = data.iconUrl
   },
   methods: {
     async SubmitHandler(e) {
@@ -75,19 +66,17 @@ export default {
         }
 
         formData.append('name', this.name)
-        formData.append('location', this.location)
+        formData.append('htmlText', this.vhtml)
         formData.append('description', this.description)
-        formData.append('founded', this.founded)
-        formData.append('intStudents', this.intStudents)
-        formData.append('faculty', this.faculty)
-        formData.append('totalStudents', this.totalStudents)
+        formData.append('color', this.color)
+        formData.append('iconUrl', this.iconUrl)
 
-        await this.$axios.$patch('/api/univ/' + this.$route.params.id, formData, {headers: {
+        await this.$axios.$patch('/api/admission/' + this.$route.params.id, formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
             "Content-Type": 'multipart/form-data'
           }})
         this.$store.dispatch('setMessage', {
-          value: 'Univ updated',
+          value: 'Admission updated',
           type: 'primary'
         })
       } catch(e) {
@@ -102,11 +91,11 @@ export default {
     },
     async deleteProduct() {
       try {
-        await this.$axios.$delete('/api/univ/'+this.$route.params.id, {headers: {
+        await this.$axios.$delete('/api/admission/'+this.$route.params.id, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
           }})
         this.$store.dispatch('setMessage', {
-          value: 'Univ deleted',
+          value: 'Admission deleted',
           type: 'primary'
         })
         this.$router.push('/admin')
@@ -122,6 +111,7 @@ export default {
 </script>
 
 <style scoped>
+
 .custom-file-upload {
   border: 1px solid #ccc;
   display: inline-block;

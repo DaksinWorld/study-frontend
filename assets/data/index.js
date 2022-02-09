@@ -6,7 +6,7 @@ export const menuEn = [
   {name: 'Contacts', path: 'Contacts'},
 ]
 
-export const imageUrl = 'https://study-project-2.herokuapp.com'
+export const imageUrl = 'http://localhost:3000'
 
 export const degree = [
   'Bachelor\'s and Specialist Degree',

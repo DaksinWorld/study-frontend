@@ -9,7 +9,7 @@
       <input v-model="phone" id="phone" type="number" class="form-control" placeholder="phone">
       <button class="btn plan-b-submit" type="submit">Send!</button>
     </form>
-    <img height="282" width="451" src="/plan-b-gb.png" alt="bg">
+    <img class="img" height="282" width="451" src="/plan-b-gb.png" alt="bg">
   </div>
 </template>
 
@@ -51,12 +51,22 @@ input {
   border: 3px solid rgb(var(--color_primary));
 }
 
+.img {
+  width: 50%;
+  object-fit: cover;
+}
+
 .planb {
   background-color: white;
   width: 40%;
   border-radius: 25px;
   padding: 20px;
   height: 340px;
+}
+
+.form {
+  width: 50%;
+  margin: 5px;
 }
 
 label {
@@ -73,4 +83,17 @@ label {
   font-family: Montserrat;
   font-weight: 700;
 }
+
+@media screen and (max-width: 1024px) {
+  .img {
+    display: none;
+  }
+  .form {
+    width: 100%;
+  }
+  .planb {
+    width: 60%;
+  }
+}
+
 </style>

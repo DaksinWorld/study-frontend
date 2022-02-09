@@ -30,17 +30,21 @@
       </div>
       <div class="container">
         <div class="plan-b mt-5">
-          <div class="d-flex flex-row align-items-center">
+          <div class="d-flex planb-text flex-row align-items-center">
             <div class="text">
               <h2 class="plan-b-title">Plan B</h2>
-              <h3 class="plan-b-subtitle">We will send your application to all universities and in two weeks you will receive the contacts of a responsible person of a university that chosen you. From this moment you get admission on your own.We will send your application to all universities and in two weeks you will receive the contacts of a responsible person of a university that chosen you. From this moment you get admission on your own.</h3>
+              <h3 class="plan-b-subtitle">We will send your application to all universities and in two weeks you will
+                receive the contacts of a responsible person of a university that chosen you. From this moment you get
+                admission on your own.We will send your application to all universities and in two weeks you will
+                receive the contacts of a responsible person of a university that chosen you. From this moment you get
+                admission on your own.</h3>
             </div>
             <img width="400" height="200" src="/plan-b.svg" alt="plan-b-bg">
           </div>
           <button class="btn plan-b-btn" @click="isModalOpened = true">Use Plan B</button>
         </div>
         <div v-if="isModalOpened">
-          <div @click="isModalOpened = false" class="modal" >
+          <div @click="isModalOpened = false" class="modal">
           </div>
           <PlanBCard class="plan-b-card"/>
         </div>
@@ -51,7 +55,8 @@
             <h2>
               Universities
             </h2>
-            <h3>Only regional universities. Regional doesn't mean backward. It means fresh and authentic. The education quality matches capital institutes, while tuition fees are far more affordable.</h3>
+            <h3 class="univ-desc">Only regional universities. Regional doesn't mean backward. It means fresh and authentic. The education
+              quality matches capital institutes, while tuition fees are far more affordable.</h3>
           </div>
           <div class="catalog-univ">
             <div class="d-flex flex-row flex-wrap">
@@ -65,6 +70,26 @@
               </button>
             </nuxt-link>
           </div>
+        </div>
+      </div>
+      <div class="how-to-apply container mx-2">
+        <h2 class="title">How to apply?</h2>
+        <ul>
+          <li>
+            <span class="number m-2">1</span>
+            <span>Select three or more (up to six) education programs</span>
+          </li>
+          <li>
+            <span class="number m-2">2</span> Check and place your order in Cart
+          </li>
+          <li>
+            <span class="number m-2">3</span>Fill in an application form in Cart on 2nd step and we will contact you soon
+          </li>
+        </ul>
+      </div>
+      <div class="admission container">
+        <div class="w-33" v-for="admission in admissions">
+          <AdmissionCard :data="admission"/>
         </div>
       </div>
     </main>
@@ -83,23 +108,24 @@ export default {
       mainText: mainTextEn,
       data: [],
       univ: [],
+      admissions: [],
       isModalOpened: false
     }
   },
-  async mounted(){
+  async mounted() {
     this.data = await this.$axios.$get('/api/product')
-    this.data.slice(0,4)
+    this.data.slice(0, 4)
     this.univ = await this.$store.dispatch('requests/getAll', 'univ')
-    this.univ.slice(0,3)
+    this.univ.slice(0, 2)
+    this.admissions = await this.$store.dispatch('requests/getAll', 'admission')
   }
 }
 </script>
 <style scoped>
-
 .plan-b-title {
   font-size: 36px;
   font-weight: 600;
-  font-family: 'Montserrat',serif;
+  font-family: 'Montserrat', serif;
   color: var(--white_hex);
 }
 
@@ -115,13 +141,56 @@ export default {
   z-index: 1100;
 }
 
+.how-to-apply {
+
+}
+
+.how-to-apply ul {
+  padding: 0;
+}
+
+.how-to-apply ul li {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 19px;
+  margin: 12px 0;
+  color: rgb(var(--middle_lavender));
+}
+
+.how-to-apply ul li a {
+  margin: 0 4px;
+}
+
+.number {
+  color: var(--light_blue);
+  font-size: 40px;
+  font-weight: 700;
+  background-color: #465099;
+  border-radius: 50%;
+  padding: 10px 30px;
+  margin-right: 5px;
+}
+
+.title {
+  font-size: 40px;
+  color: var(--light_blue);
+  font-weight: 700;
+  margin: 15px 0;
+}
+
+.how-to-apply-link {
+  color: rgb(var(--middle_lavender));
+  text-decoration: underline;
+}
+
 .modal {
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
   left: 0;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   height: 100%;
   display: flex;
@@ -133,7 +202,7 @@ export default {
 .plan-b-subtitle {
   font-size: 16px;
   font-weight: 500;
-  font-family: Montserrat,serif;
+  font-family: Montserrat, serif;
   color: var(--gray_light);
   width: 50%;
 }
@@ -149,7 +218,7 @@ export default {
 
 .find-programs-title {
   font-weight: 700;
-  font-family: 'Montserrat',serif;
+  font-family: 'Montserrat', serif;
   color: var(--dark_blue);
 }
 
@@ -167,12 +236,12 @@ export default {
 
 .universities {
   margin-top: 50px;
-  background-color: #afb5d5;
+  background-color: var(--light_blue);
   width: 100%;
   padding: 20px 0;
 }
 
-.universities h2,h3  {
+.universities h2, h3 {
   font-family: "Source Sans Pro";
   font-weight: 700;
   color: white;
@@ -191,7 +260,7 @@ main {
 }
 
 .hello-main-text {
-  color: rgb(43,57,144);
+  color: rgb(43, 57, 144);
   font-size: 1.6rem;
   text-align: center;
   font-weight: 600;
@@ -227,11 +296,12 @@ main {
   background-color: #b5b8d6;
   transition: background-color .2s linear;
 }
+
 .btn {
-   font-size: 20px;
-   font-weight: 600;
-   color: rgb(var(--green_light));
- }
+  font-size: 20px;
+  font-weight: 600;
+  color: rgb(var(--green_light));
+}
 
 .hello-circle {
   padding: 10px 26px;
@@ -247,16 +317,28 @@ main {
   border-radius: 25px;
 }
 
-@media screen and (max-width: 1024px){
-  .hello-main-page__inner{
+@media screen and (max-width: 1024px) {
+  .hello-main-page__inner {
     width: 100%;
   }
+  .planb-text {
+    flex-direction: column !important;
+  }
+  .plan-b-subtitle{
+    width: 100%;
+  }
+
+  .plan-b-card {
+    left: 19%;
+  }
+
 }
 
 @media screen and (max-width: 1024px) {
   .find-programs {
     flex-direction: column;
   }
+
   .w-33 {
     width: 100%;
   }

@@ -1,10 +1,10 @@
 <template>
   <article class="card" :style="{backgroundColor: data.color}">
-    <nuxt-link :to="`/admission${data.path}?type=${data.title}`">
-      <img class="card-image" :src="data.image" :alt="data.name">
+    <nuxt-link :to="`/admission/${data.name}?id=${data._id}`">
+      <img class="card-image" :src="imageUrl + data.images[0].url" :alt="data.name">
       <div class="card-body">
-        <div v-html="data.svg" class="svg"></div>
-        <h3 class="title">{{data.title}}</h3>
+        <div v-html="data.iconUrl" class="svg"></div>
+        <h3 class="title">{{data.name}}</h3>
         <h4 class="desc">{{data.description}}</h4>
       </div>
     </nuxt-link>
@@ -12,15 +12,22 @@
 </template>
 
 <script>
+import {imageUrl} from "../../assets/data";
+
 export default {
-  props: ['data']
+  props: ['data'],
+  data: () => {
+    return {
+      imageUrl: imageUrl
+    }
+  }
 }
 </script>
 
 <style scoped>
 
 .card {
-  height: 550px;
+  height: 400px;
   border-radius: var(--standard_border_radius);
   padding: 0;
   border: 0;

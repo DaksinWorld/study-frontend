@@ -11,14 +11,16 @@
 </template>
 
 <script>
-import {AdmissionCards} from "../assets/data";
 
 export default {
   layout: 'light',
   data: () => {
     return {
-      admissionData: AdmissionCards
+      admissionData: []
     }
+  },
+  async mounted() {
+    this.admissionData = await this.$store.dispatch('requests/getAll', 'admission')
   }
 }
 </script>

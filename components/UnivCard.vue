@@ -57,7 +57,7 @@ export default {
 <style scoped>
 .img {
   width: 100%;
-  height: 100px;
+  height: 120px;
   object-fit: cover;
   border-radius: var(--standard_border_radius) var(--standard_border_radius) 0 0;
 }

@@ -63,6 +63,9 @@ export default {
     if(this.data.name) {
       this.programs = await this.$axios.$post('/api/courses/findPrograms', {category: this.data.name})
     }
+  },
+  beforeDestroy() {
+    document.querySelector('body').style.backgroundColor = 'rgb(255, 255, 255)'
   }
 }
 </script>
