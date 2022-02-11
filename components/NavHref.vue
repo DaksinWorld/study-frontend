@@ -4,11 +4,11 @@
       <div class="wrapper">
         <div class="d-flex">
           <a href="/">
-            <img src="/logo.svg" width="100" height="100" alt="logo">
+            <img src="/logo.svg" width="140" height="140" alt="logo">
           </a>
           <div class="right d-flex">
             <div class="menu-opened">
-              <div v-for="m in menu" :key="m">
+              <div v-for="m in menu" :key="m.name">
                 <a :href="`/${m.path}`" class="links">{{ m.name }}</a>
               </div>
             </div>
@@ -19,7 +19,7 @@
       </div>
     </nav>
     <div class="menus">
-      <div v-for="m in menu" :key="m">
+      <div v-for="m in menu" :key="m.name">
         <a :href="`/${m.path}`" class="links">{{ m.name }}</a>
       </div>
       <button @click="closeMenu" class="close">x</button>

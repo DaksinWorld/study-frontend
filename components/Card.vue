@@ -38,7 +38,7 @@
         Add to Cart
       </div>
       <nuxt-link v-else to="/cart">
-        <div class="btn btn-primary">
+        <div class="btn btn-primary col-lavender">
           Go To Cart
         </div>
       </nuxt-link>
@@ -73,7 +73,8 @@ export default {
     addToCart() {
       let saledProduct = {
         ...this.data,
-        qty: 1
+        qty: 1,
+        type: 'program'
       }
 
 

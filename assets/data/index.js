@@ -2,11 +2,10 @@ export const menuEn = [
   {name: 'Programs', path: 'Programs'},
   {name: 'Universities', path: 'Universities'},
   {name: 'Admission', path: 'Admission'},
-  {name: 'About Us', path: 'AboutUs'},
-  {name: 'Contacts', path: 'Contacts'},
+  {name: 'About Us', path: 'AboutUs'}
 ]
 
-export const imageUrl = 'http://localhost:3000'
+export const imageUrl = 'https://univente.me'
 
 export const degree = [
   'Bachelor\'s and Specialist Degree',
@@ -34,10 +33,16 @@ export const fieldOfCourses = [
 ]
 
 export const universityData = [
-  'Bashkir State University (BSU)',
-  'Kazan National Research Technical University named after A.N.Tupolev - KAI(KNRTU / KAI)',
-  'Siberian Federal University (SibFU)',
-  'Ural State University of Economics(USUE)'
+  'Universidad Estatal de Kabardino-Balkaria',
+  'Universidad Estatal de Petrozavodsk',
+  'Universidad Estatal de Novosibirsk',
+  'Universidad Técnica Estatal de Novosibirsk',
+  'Universidad Estatal Karachay-Cherkess',
+  'Universidad Estatal de Riazán',
+  'Universidad Médica Estatal de Ryazan',
+  'Universidad Estatal Agrotecnológica de Ryazan',
+  'Instituto Estatal de Daguestán',
+  'Instituto Técnico Estatal de Daguestán'
 ]
 
 export const city = [

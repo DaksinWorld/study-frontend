@@ -32,16 +32,16 @@
         <div class="plan-b mt-5">
           <div class="d-flex planb-text flex-row align-items-center">
             <div class="text">
-              <h2 class="plan-b-title">Plan B</h2>
+              <h2 class="plan-b-title">SOS-Application</h2>
               <h3 class="plan-b-subtitle">We will send your application to all universities and in two weeks you will
                 receive the contacts of a responsible person of a university that chosen you. From this moment you get
                 admission on your own.We will send your application to all universities and in two weeks you will
                 receive the contacts of a responsible person of a university that chosen you. From this moment you get
                 admission on your own.</h3>
             </div>
-            <img width="400" height="200" src="/plan-b.svg" alt="plan-b-bg">
+            <img class="plan-b-img" width="400" height="200" src="/plan-b.svg" alt="plan-b-bg">
           </div>
-          <button class="btn plan-b-btn" @click="isModalOpened = true">Use Plan B</button>
+          <button class="btn plan-b-btn" @click="isModalOpened = true">Use SOS</button>
         </div>
         <div v-if="isModalOpened">
           <div @click="isModalOpened = false" class="modal">
@@ -92,6 +92,7 @@
           <AdmissionCard :data="admission"/>
         </div>
       </div>
+      <Footer/>
     </main>
   </div>
 </template>
@@ -141,8 +142,8 @@ export default {
   z-index: 1100;
 }
 
-.how-to-apply {
-
+.plan-b-img {
+  width: 100%;
 }
 
 .how-to-apply ul {

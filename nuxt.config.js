@@ -45,6 +45,25 @@ export default {
     ]
   ],
 
+  i18n: {
+    locales: ['en', 'fr', 'es'],
+    defaultLocale: 'en',
+    vueI18n: {
+      fallbackLocale: 'en',
+      messages: {
+        en: {
+          welcome: 'Welcome'
+        },
+        fr: {
+          welcome: 'Bienvenue'
+        },
+        es: {
+          welcome: 'Bienvenido'
+        }
+      }
+    }
+  },
+
   server: {
     port: 4000,
     host: 'localhost'
@@ -52,11 +71,11 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: development ? 'http://localhost:3000' : 'http://80.87.111.180:3000'
+    baseUrl: development ? 'https://www.univente.me' : 'https://univente.me'
   },
 
   proxy: {
-    '/images': { target: 'http://localhost:3000', pathRewrite: {'^/images': ''} },
+    '/images': { target: 'https://www.univente.me', pathRewrite: {'^/images': ''} },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

@@ -4,11 +4,11 @@
       <div class="wrapper">
         <div class="d-flex">
           <nuxt-link to="/">
-            <img src="/logo.svg" width="100" height="100" alt="logo">
+            <img src="/logo.svg" width="140" height="140" alt="logo">
           </nuxt-link>
           <div class="right d-flex">
             <div class="menu-opened">
-              <div v-for="m in menu" :key="m">
+              <div v-for="m in menu" :key="m.name">
                 <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
               </div>
             </div>
@@ -19,7 +19,7 @@
       </div>
     </nav>
     <div class="menus">
-      <div v-for="m in menu" :key="m">
+      <div v-for="m in menu" :key="m.name">
         <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
       </div>
       <button @click="closeMenu" class="close">x</button>
