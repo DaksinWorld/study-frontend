@@ -17,20 +17,24 @@
         <td v-if="d.images[1].url">
           <img height="50" width="50" :src='imageUrl + d.images[1].url' alt="image">
         </td>
-        <td v-if="d.name">
-          <h4>{{d.name}}</h4>
+        <td v-if="d.nameEn">
+          <h4>{{d.nameEn}}</h4>
         </td>
         <td v-if="d.location">
           <h4>{{d.location}}</h4>
         </td>
-        <td v-if="d.description">
-          <h4>{{d.description}}</h4>
+        <td v-if="d.descriptionEn">
+          <h4>{{d.descriptionEn}}</h4>
         </td>
         <td v-if="d.totalStudents">
           <h4>{{d.totalStudents}}</h4>
         </td>
         <td>
-          <EditButton :url="`edit/univ/${d._id}`"/>
+          <button class="btn btn-primary">
+            <nuxt-link class="text-white" :to="`/admin/univ/${d._id}`">
+              Edit
+            </nuxt-link>
+          </button>
         </td>
       </tr>
       </tbody>
@@ -78,7 +82,7 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue){
+          if(this.searchValue && e.name){
             return e.name.includes(this.searchValue)
           }
           return e

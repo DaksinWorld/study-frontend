@@ -1,14 +1,15 @@
 <template>
   <div>
-    <nuxt-link :to="`/univ-page/?id=${data._id}`">
-      <article class="card" v-if="data">
+      <article @click="navigateTo(data._id)" class="card" v-if="data">
         <img :src="imageUrl + data.images[0].url" alt="university-image" class="img">
         <div class="grid-area">
           <div class="left-col">
             <h4 class="location">{{data.location}}</h4>
-            <h3 class="name">{{data.name}}</h3>
+            <h3 class="name" v-if="isIncludesSp">{{data.nameSp}}</h3>
+            <h3 class="name" v-else>{{data.nameEn}}</h3>
             <hr>
-            <h5 class="description">{{data.description}}</h5>
+            <h5 class="description" v-if="isIncludesSp">{{data.descriptionSp}}</h5>
+            <h5 class="description" v-else>{{data.descriptionEn}}</h5>
           </div>
           <div class="right-col">
             <ul>
@@ -32,7 +33,6 @@
           </div>
         </div>
       </article>
-    </nuxt-link>
   </div>
 </template>
 
@@ -46,9 +46,23 @@ export default {
       required: true
     }
   },
+  computed: {
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
+    }
+  },
   data: () => {
     return {
       imageUrl: imageUrl
+    }
+  },
+  methods: {
+    navigateTo(id){
+      if(this.isIncludesSp) {
+        this.$router.push('/sp/univ-page/?id=' + id)
+      } else {
+        this.$router.push('/univ-page/?id=' + id)
+      }
     }
   }
 }
@@ -66,12 +80,12 @@ export default {
   color: var(--gray_light);
   font-weight: 400;
   font-family: "Source Sans Pro";
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .name {
   color: var(--white_hex);
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .description {
@@ -82,7 +96,6 @@ export default {
   background-color: rgb(var(--color_primary));
   border: 0;
   border-radius: var(--standard_border_radius);
-  height: 400px;
 }
 
 .grid-area {
@@ -103,6 +116,7 @@ li {
   font-family: 'Source Sans Pro',serif;
   font-weight: 600;
   padding: 5px;
+  font-size: 14px;
 }
 
 span {

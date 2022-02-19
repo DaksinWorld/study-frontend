@@ -87,7 +87,7 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue){
+          if(this.searchValue && e.email){
             return e.email.includes(this.searchValue)
           }
           return e

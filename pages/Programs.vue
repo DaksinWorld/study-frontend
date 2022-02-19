@@ -17,41 +17,77 @@
           </div>
           <div class="filters">
             <div class="firstFilters" v-if="pickedValue === 'degree'">
-              <div class="degree">
+              <div class="degree" v-if="isIncludesSp">
                 <label for="degree">Degree</label>
-                <select v-model="degreeVal" id="degree" class="form-control">
+                <select v-model="degreeValSp" id="degree" class="form-control">
                   <option value="">All Degrees</option>
-                  <option v-for="(name,i) in degree" :value="name" :key="i">{{ name }}</option>
+                  <option v-for="(name,i) in degreeSp" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
-              <div class="fieldOfStudy">
-                <label for="fieldOfStudy">Field Of Study</label>
-                <select v-model="fieldStudyValue" id="fieldOfStudy" class="form-control">
+              <div class="degree" v-else>
+                <label >Degree</label>
+                <select v-model="degreeValEn" class="form-control">
+                  <option value="">All Degrees</option>
+                  <option v-for="(name,i) in degreeEn" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
+              <div class="fieldOfStudy" v-if="isIncludesSp">
+                <label for="fieldOfStudy" >Field Of Study</label>
+                <select v-model="fieldStudyValueSp" id="fieldOfStudy" class="form-control">
                   <option value="">All Fields of study</option>
-                  <option v-for="(name,i) in fieldOfStudy" :value="name" :key="i">{{ name }}</option>
+                  <option v-for="(name,i) in fieldOfStudySp" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
-              <div class="fieldOfStudy">
-                <label for="Programs">Programs</label>
-                <select v-model="programsValue" id="Programs" class="form-control">
+              <div class="fieldOfStudy" v-else>
+                <label>Field Of Study</label>
+                <select v-model="fieldStudyValueEn" class="form-control">
                   <option value="">All Fields of study</option>
-                  <option v-for="(name,i) in programsData" :value="name" :key="i">{{ name }}</option>
+                  <option v-for="(name,i) in fieldOfStudyEn" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
+              <div class="fieldOfStudy" v-if="isIncludesSp">
+                <label>Programs</label>
+                <select v-model="programsValueSp" class="form-control">
+                  <option value="">All Fields of study</option>
+                  <option v-for="(name,i) in programsDataSp" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
+              <div class="fieldOfStudy" v-else>
+                <label>Programs</label>
+                <select v-model="programsValueEn" class="form-control">
+                  <option value="">All Fields of study</option>
+                  <option v-for="(name,i) in programsDataEn" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
+
             </div>
             <div class="secondFilters" v-else>
-              <div class="degree">
-                <label for="fieldOfStudy2">Field Of Study</label>
-                <select v-model="fieldCoursesValue" id="fieldOfStudy2" class="form-control">
+              <div class="degree" v-if="isIncludesSp">
+                <label for="fieldOfStudy12">Field Of Study</label>
+                <select v-model="fieldCoursesValueSp" id="fieldOfStudy12" class="form-control">
                   <option value="">All Fields of study</option>
-                  <option v-for="(name,i) in fieldOfCourses" :value="name" :key="i">{{ name }}</option>
+                  <option v-for="(name,i) in fieldOfCoursesSp" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
-              <div class="fieldOfStudy">
-                <label for="Universities">Universities</label>
-                <select v-model="universitiesValue" id="Universities" class="form-control">
+              <div class="degree" v-else>
+                <label for="fieldOfStudy1">Field Of Study</label>
+                <select v-model="fieldCoursesValueEn" id="fieldOfStudy1" class="form-control">
+                  <option value="">All Fields of study</option>
+                  <option v-for="(name,i) in fieldOfCoursesEn" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
+              <div class="fieldOfStudy" v-if="isIncludesSp">
+                <label for="UniversitiesSp">Universities</label>
+                <select v-model="universitiesValueSp" id="UniversitiesSp" class="form-control">
                   <option value="">All Universities</option>
-                  <option v-for="(name,i) in universities" :value="name" :key="i">{{ name }}</option>
+                  <option v-for="(name,i) in universitiesSp" :value="name" :key="i">{{ name }}</option>
+                </select>
+              </div>
+              <div class="fieldOfStudy" v-else>
+                <label for="Universities">Universities</label>
+                <select v-model="universitiesValueEn" id="Universities" class="form-control">
+                  <option value="">All Universities</option>
+                  <option v-for="(name,i) in universitiesEn" :value="name" :key="i">{{ name }}</option>
                 </select>
               </div>
             </div>
@@ -82,7 +118,7 @@
           <div v-for="(d, i) in sortedData" :key="i" v-if="pickedValue === 'degree'" class="w-33">
             <Card class="mr-3 my-2" :data="d"/>
           </div>
-          <div class="w-33" v-if="pickedValue === 'courses'" v-for="d in sortedCoursesData" :key="d.name">
+          <div class="w-33" v-if="pickedValue === 'courses'" v-for="(d, i) in sortedCoursesData" :key="i">
             <CoursesCard class="mr-3 my-2" :data="d"/>
           </div>
         </div>
@@ -93,7 +129,15 @@
 
 <script>
 import CoursesCard from "../components/CoursesCard";
-import {degree, fieldOfCourses, fieldOfStudy, programs, universityData} from "../assets/data";
+import {
+  degree, degreeSp,
+  fieldOfCourses,
+  fieldOfCoursesSp,
+  fieldOfStudy, fieldOfStudySp,
+  programsEn,
+  universityData,
+  universityDataEn
+} from "../assets/data";
 
 export default {
   components: {CoursesCard},
@@ -106,19 +150,35 @@ export default {
       sortBy: 'newest',
       pickedValue: 'degree',
 
-      universitiesValue: '',
-      fieldCoursesValue: '',
+      universitiesValueEn: '',
+      universitiesValueSp: '',
 
-      degreeVal: '',
-      fieldStudyValue: '',
+      fieldCoursesValueEn: '',
+      fieldCoursesValueSp: '',
 
-      programsValue: '',
+      degreeValEn: '',
+      degreeValSp: '',
 
-      degree: degree,
-      fieldOfStudy: fieldOfStudy,
-      fieldOfCourses: fieldOfCourses,
-      universities: universityData,
-      programsData: programs
+      fieldStudyValueEn: '',
+      fieldStudyValueSp: '',
+
+      programsValueEn: '',
+      programsValueSp: '',
+
+      degreeEn: degree,
+      degreeSp: degreeSp,
+
+      fieldOfStudyEn: fieldOfStudy,
+      fieldOfStudySp: fieldOfStudySp,
+
+      fieldOfCoursesEn: fieldOfCourses,
+      fieldOfCoursesSp: fieldOfCoursesSp,
+
+      universitiesEn: universityDataEn,
+      universitiesSp: universityData,
+
+      programsDataEn: programsEn,
+      programsDataSp: programsEn
     }
   },
   async mounted() {
@@ -138,13 +198,25 @@ export default {
       const programs = this.$route.query.program
 
       if (type === 'degree') {
-        this.degreeVal = degree
-        this.fieldStudyValue = fieldStudy
-        this.programsValue = programs
+        if(this.isIncludesSp) {
+          this.degreeValSp = degree
+          this.fieldStudyValueSp = fieldStudy
+          this.programsValueSp = programs
+        } else {
+          this.degreeValEn = degree
+          this.fieldStudyValueEn = fieldStudy
+          this.programsValueEn = programs
+        }
       } else if (type === 'courses') {
-        this.pickedValue = 'courses'
-        this.universitiesValue = univ
-        this.fieldCoursesValue = field
+        if(this.isIncludesSp){
+          this.pickedValue = 'courses'
+          this.universitiesValueSp = univ
+          this.fieldCoursesValueSp = field
+        } else {
+          this.pickedValue = 'courses'
+          this.universitiesValueEn = univ
+          this.fieldCoursesValueEn = field
+        }
       }
 
     } catch (e) {
@@ -155,23 +227,44 @@ export default {
     sortedData() {
       return this.products
         .filter((d) => {
-          const DEGREE = this.degreeVal
+          const DEGREE = this.degreeValEn
           if (DEGREE) {
-            return d.degree.includes(DEGREE)
+            return d.degreeEn.includes(DEGREE)
           }
           return d
         })
         .filter((d) => {
-          const FIELDOFSTUDY = this.fieldStudyValue
+          const DEGREE = this.degreeValSp
+          if (DEGREE) {
+            return d.degreeSp.includes(DEGREE)
+          }
+          return d
+        })
+        .filter((d) => {
+          const FIELDOFSTUDY = this.fieldStudyValueEn
           if (FIELDOFSTUDY) {
-            return d.fieldOfStudy.includes(FIELDOFSTUDY)
+            return d.fieldOfStudyEn.includes(FIELDOFSTUDY)
           }
           return d
         })
         .filter((d) => {
-          const PROGRAMS = this.programsValue
+          const FIELDOFSTUDY = this.fieldStudyValueSp
+          if (FIELDOFSTUDY) {
+            return d.fieldOfStudySp.includes(FIELDOFSTUDY)
+          }
+          return d
+        })
+        .filter((d) => {
+          const PROGRAMS = this.programsValueEn
           if (PROGRAMS) {
-            return d.programs.includes(PROGRAMS)
+            return d.programsEn.includes(PROGRAMS)
+          }
+          return d
+        })
+        .filter((d) => {
+          const PROGRAMS = this.programsValueSp
+          if (PROGRAMS) {
+            return d.programsSp.includes(PROGRAMS)
           }
           return d
         })
@@ -191,16 +284,30 @@ export default {
     sortedCoursesData() {
       return this.courses
         .filter((d) => {
-          const UNIV = this.universitiesValue
-          if (UNIV) {
-            return d.universities.includes(UNIV)
+          const UNIVEn = this.universitiesValueEn
+          if (UNIVEn) {
+            return d.universitiesEn.includes(UNIVEn)
           }
           return d
         })
         .filter((d) => {
-          const fieldCourses = this.fieldCoursesValue
-          if (fieldCourses) {
-            return d.fieldOfCourse.includes(fieldCourses)
+          const UNIVSp = this.universitiesValueSp
+          if (UNIVSp) {
+            return d.universitiesSp.includes(UNIVSp)
+          }
+          return d
+        })
+        .filter((d) => {
+          const fieldCoursesEn = this.fieldCoursesValueEn
+          if (fieldCoursesEn) {
+            return d.fieldOfCourseEn.includes(fieldCoursesEn)
+          }
+          return d
+        })
+        .filter((d) => {
+          const fieldCoursesSp = this.fieldCoursesValueSp
+          if (fieldCoursesSp) {
+            return d.fieldOfCourseSp.includes(fieldCoursesSp)
           }
           return d
         })
@@ -219,6 +326,9 @@ export default {
     },
     catalog() {
       return this.$route.query.type
+    },
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
     }
   },
   methods: {

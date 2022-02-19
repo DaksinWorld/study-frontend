@@ -3,14 +3,19 @@
     <nav>
       <div class="wrapper">
         <div class="d-flex">
-          <a href="/">
+          <a v-if="isIncludesSp" href="/sp">
+            <img src="/logo.svg" width="140" height="140" alt="logo">
+          </a>
+          <a v-else href="/">
             <img src="/logo.svg" width="140" height="140" alt="logo">
           </a>
           <div class="right d-flex">
             <div class="menu-opened">
               <div v-for="m in menu" :key="m.name">
-                <a :href="`/${m.path}`" class="links">{{ m.name }}</a>
+                <a v-if="isIncludesSp" :href="`/sp/${m.path}`" class="links">{{ m.name }}</a>
+                <a v-else :href="`/${m.path}`" class="links">{{ m.name }}</a>
               </div>
+              <I18n/>
             </div>
             <CartBtn :theme="'dark'" class="mx-3"/>
             <img @click="openMenu" class="menu" width="29px" height="22px" src="/white-menu.svg" alt="menu">
@@ -20,8 +25,10 @@
     </nav>
     <div class="menus">
       <div v-for="m in menu" :key="m.name">
-        <a :href="`/${m.path}`" class="links">{{ m.name }}</a>
+        <a v-if="isIncludesSp" :href="`/sp/${m.path}`" class="links">{{ m.name }}</a>
+        <a v-else :href="`/${m.path}`" class="links">{{ m.name }}</a>
       </div>
+      <I18n/>
       <button @click="closeMenu" class="close">x</button>
     </div>
   </div>
@@ -34,6 +41,11 @@ export default {
   data: () => {
     return {
       menu: menuEn
+    }
+  },
+  computed: {
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
     }
   },
   methods: {

@@ -1,14 +1,25 @@
 <template>
   <div class="container" v-if="data">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <input v-model="name" class="form-control" type="text" :placeholder="data.name">
+      <label>Name English</label>
+      <input v-model="nameEn" class="form-control" type="text" :placeholder="data.nameEn">
+
+      <label>Name Spanish</label>
+      <input v-model="nameSp" class="form-control" type="text" :placeholder="data.nameSp">
+
+
       <label>Deadline</label>
       <input v-model="deadline" class="form-control" type="text" :placeholder="data.deadline">
-      <label>Universities</label>
-      <select v-model="university" class="form-control">
-        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
+
+      <label>Universities English</label>
+      <select v-model="universityEn" class="form-control">
+        <option v-for="(name,i) in universityDataEn" :value="name" :key="i">{{ name }}</option>
       </select>
+      <label>Universities Spanish</label>
+      <select v-model="universitySp" class="form-control">
+        <option v-for="(name,i) in universityDataSp" :value="name" :key="i">{{ name }}</option>
+      </select>
+
       <label>Cities</label>
       <select v-model="city" class="form-control">
         <option v-for="(name,i) in cityData" :value="name" :key="i">{{ name }}</option>
@@ -38,36 +49,53 @@
 </template>
 
 <script>
-import {city, fieldOfCourses, PRODUCT_UPDATED, universityData} from "@/assets/data";
+import {city, fieldOfCourses, PRODUCT_UPDATED} from "@/assets/data";
 import {PRODUCT_DELETED} from "@/assets/data";
+import {universityDataEn, universityData} from "../../../assets/data";
 
 export default {
   layout: 'admin',
+  async asyncData({$axios, params}) {
+    const data = await $axios.$get('/api/courses/find/' + params.id)
+
+    return {
+      data
+    }
+  },
   data: () => {
     return {
       data: [],
-      name: '',
+      nameEn: '',
+      nameSp: '',
       fieldOfCourse: '',
       description: '',
       price: '',
       location: '',
       duration: '',
-      university: '',
+
+      universityEn: '',
+      universitySp: '',
+
       deadline: '',
       city: '',
       startDate: '',
       fieldOfCourseData: fieldOfCourses,
-      universityData: universityData,
-      cityData: city
+
+      universityDataEn: universityDataEn,
+      universityDataSp: universityData,
+
+      cityData: city,
     }
   },
   async mounted() {
-    this.data = await this.$axios.$get('/api/courses/find/' + this.$route.params.id)
-    this.name = this.data.name
-    this.fieldOfCourse = this.data.fieldOfCourse
+    this.nameEn = this.data.nameEn
+    this.nameSp = this.data.nameSp
+    this.fieldOfCourseEn = this.data.fieldOfCourseEn
+    this.fieldOfCourseSp = this.data.fieldOfCourseSp
     this.price = this.data.price
     this.city = this.data.cities
-    this.university = this.data.universities
+    this.universityEn = this.data.universitiesEn
+    this.universitySp = this.data.universitiesSp
     this.location = this.data.location
     this.deadline = this.data.deadline
     this.duration = this.data.duration

@@ -3,8 +3,12 @@
     <div class="container">
       <h3 class="footer-title">Contacts</h3>
       <div class="footer-text">
-        Phone number: 89889330452
-        <a href="https://api.whatsapp.com/send?phone=89313544407" target="_blank">
+        Our adress: St. Petersburg, st. Millionnaya, 19, letter I
+        <br>
+        Univenter LLC
+        <br>
+        Phone number: +7 931 354 44 07
+        <a href="https://api.whatsapp.com/send?phone=+79313544407" target="_blank">
           <img width="50" height="50" src="/whatsapp.svg" alt="whatsapp">
         </a>
       </div>
@@ -19,6 +23,9 @@
           <img width="50" height="50" src="/facebook.svg" alt="facebook">
         </a>
       </div>
+      <nuxt-link class="text-white my-2" to="/privacy-policy">
+        Privacy Policy
+      </nuxt-link>
     </div>
   </footer>
 </template>
@@ -30,14 +37,14 @@ export default {
 
 <style scoped>
 .footer {
-  background-color: #EEEFF6;
+  background-color: #2c3a92;
   width: 100%;
   margin-top: 20px;
   padding: 30px 0.5rem;
 }
 
 .footer-title {
-  color: rgb(var(--middle_lavender));
+  color: white;
   font-weight: 600;
   margin: 0;
 }
@@ -50,6 +57,7 @@ export default {
 .footer-text {
   display: flex;
   align-items: center;
+  color: var(--gray_light);
 }
 
 </style>

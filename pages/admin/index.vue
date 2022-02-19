@@ -13,6 +13,7 @@
       <button class="btn btn-dark" @click="pickedValue('univ')">Universities</button>
       <button class="btn btn-dark" @click="pickedValue('admission')">Admissions</button>
       <button class="btn btn-dark" @click="pickedValue('request')">Requests</button>
+      <button class="btn btn-dark" @click="pickedValue('application')">Applications</button>
       <div v-if="picked === 'products'">
         <h2>Products</h2>
         <TableProduct/>
@@ -33,9 +34,13 @@
         <h2>Admission</h2>
         <TableAdmission/>
       </div>
-      <div v-else>
+      <div v-else-if="picked === 'request'">
         <h2>Requests</h2>
         <TableRequests/>
+      </div>
+      <div v-else>
+        <h2>Applications</h2>
+        <TableApplication/>
       </div>
     </div>
   </div>
@@ -50,15 +55,16 @@ export default {
       jwtToken: '',
       data: [],
       picked: 'products',
-      searchValue: ''
+      searchValue: '',
+      error: ''
     }
   },
   async mounted(){
     this.jwtToken = localStorage.getItem('jwt')
     try {
-        await this.$store.dispatch('requests/checkJwt')
+      await this.$store.dispatch('requests/checkJwt')
     } catch (e) {
-        localStorage.removeItem('jwt')
+      console.log(e)
      }
   },
   methods: {

@@ -1,90 +1,140 @@
 <template>
   <div class="container">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <input v-model="name" class="form-control" type="text" placeholder="name">
-      <label>Degree</label>
-      <select v-model="degree" class="form-control">
-        <option v-for="(name,i) in degreeData" :value="name" :key="i">{{name}}</option>
+      <label>Name English</label>
+      <select v-model="nameEn" class="form-control">
+        <option v-for="(name,i) in universityDataEn" :value="name" :key="i">{{name}}</option>
       </select>
-      <label>Field Of Study</label>
-      <select v-model="fieldOfStudy" class="form-control">
-        <option v-for="(name,i) in fieldOfStudyData" :value="name" :key="i">{{ name }}</option>
+      <label>Name Spanish</label>
+      <select v-model="nameSp" class="form-control">
+        <option v-for="(name,i) in universityDataSp" :value="name" :key="i">{{name}}</option>
       </select>
-      <label>Programs</label>
-      <select v-model="programs" class="form-control">
-        <option v-for="(name,i) in programsData" :value="name" :key="i">{{ name }}</option>
+
+      <label>Degree English</label>
+      <select v-model="degreeEn" class="form-control">
+        <option v-for="(name,i) in degreeDataEn" :value="name" :key="i">{{name}}</option>
       </select>
-      <label>Description</label>
-      <input v-model="description" class="form-control" type="text" placeholder="description">
+
+      <label>Degree Spanish</label>
+      <select v-model="degreeSp" class="form-control">
+        <option v-for="(name,i) in degreeDataSp" :value="name" :key="i">{{name}}</option>
+      </select>
+
+      <label>Field Of Study English</label>
+      <select v-model="fieldOfStudyEn" class="form-control">
+        <option v-for="(name,i) in fieldOfStudyDataEn" :value="name" :key="i">{{ name }}</option>
+      </select>
+
+      <label>Field Of Study Spanish</label>
+      <select v-model="fieldOfStudySp" class="form-control">
+        <option v-for="(name,i) in fieldOfStudyDataSp" :value="name" :key="i">{{ name }}</option>
+      </select>
+
+      <label>Programs English</label>
+      <select v-model="programsEn" class="form-control">
+        <option v-for="(name,i) in programsDataEn" :value="name" :key="i">{{ name }}</option>
+      </select>
+
+      <label>Programs Spanish</label>
+      <select v-model="programsSp" class="form-control">
+        <option v-for="(name,i) in programsDataSp" :value="name" :key="i">{{ name }}</option>
+      </select>
+
       <label>Price</label>
       <input v-model="price" class="form-control" type="number" placeholder="price">
       <label>Language</label>
-      <input v-model="language" class="form-control" type="text" placeholder="language">
+      <select class="form-control" v-model="language">
+        <option value="Russian">Russian</option>
+        <option value="English">English</option>
+      </select>
       <label>Location</label>
-      <input v-model="location" class="form-control" type="text" placeholder="location">
-      <label>Duration</label>
+      <select v-model="location" class="form-control">
+        <option v-for="(name,i) in citiesData" :value="name" :key="i">{{ name }}</option>
+      </select>
+      <label>Duration(month)</label>
       <input v-model="duration" class="form-control" type="number" placeholder="duration">
       <label>Foundation Course Price</label>
       <input multiple value v-model="foundationCoursePrice" class="form-control" type="number" placeholder="foundationCoursePrice">
-      <label>Image</label>
-      <label for="file-upload" class="custom-file-upload w-100">
-        Upload Image
-      </label>
-      <span v-if="file.name">{{file.name}}</span>
-      <input id="file-upload" @change="getFile" class="form-control" type="file" ref="file">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
   </div>
 </template>
 
 <script>
-import {fieldOfStudy, PRODUCT_CREATED, programs,degree} from "../../assets/data";
+import {
+  fieldOfStudy,
+  PRODUCT_CREATED,
+  programs,
+  degree,
+  universityDataEn,
+  city,
+  universityData, degreeSp, fieldOfStudySp, programsSp, programsEn
+} from "../../assets/data";
 
 export default {
   layout: 'admin',
   data: () => {
     return {
       response: '',
-      name: '',
-      degree: '',
-      programs: '',
-      fieldOfStudy: '',
-      description: '',
+
+      nameEn: '',
+      nameSp: '',
+
+      degreeEn: '',
+      degreeSp: '',
+
+      programsEn: '',
+      programsSp: '',
+
+      fieldOfStudyEn: '',
+      fieldOfStudySp: '',
+
       price: '',
       language: '',
       location: '',
       duration: '',
       foundationCoursePrice: '',
       file: '',
-      degreeData: degree,
-      fieldOfStudyData: fieldOfStudy,
-      programsData: programs
+
+      degreeDataEn: degree,
+      degreeDataSp: degreeSp,
+
+      fieldOfStudyDataEn: fieldOfStudy,
+      fieldOfStudyDataSp: fieldOfStudySp,
+
+      programsDataEn: programsEn,
+      programsDataSp: programsSp,
+
+      universityDataEn: universityDataEn,
+      universityDataSp: universityData,
+
+      citiesData: city
     }
   },
   methods: {
     async SubmitHandler(e) {
       e.preventDefault()
       try {
-        const formData = new FormData()
+        let obj = {
+          programsEn: this.programsEn,
+          programsSp: this.programsSp,
+          degreeEn: this.degreeEn,
+          degreeSp: this.degreeSp,
+          location: this.location,
+          fieldOfStudyEn: this.fieldOfStudyEn,
+          fieldOfStudySp: this.fieldOfStudySp,
+          nameEn: this.nameEn,
+          nameSp: this.nameSp,
+          language: this.language,
+          price: this.price,
+          duration: this.duration,
+          foundationCoursePrice: this.foundationCoursePrice,
+          createdAt: Date.now().toString()
+        }
 
-        formData.append('file', this.file)
-        formData.append('name', this.name)
-        formData.append('fieldOfStudy', this.fieldOfStudy)
-        formData.append('programs', this.programs)
-        formData.append('degree', this.degree)
-        formData.append('description', this.description)
-        formData.append('price', this.price)
-        formData.append('language', this.language)
-        formData.append('location', this.location)
-        formData.append('duration', this.duration)
-        formData.append('foundationCoursePrice', this.foundationCoursePrice)
-        formData.append('createdAt', Date.now().toString())
-
-        await this.$axios.$post('/api/product/create', formData, {
+        await this.$axios.$post('/api/product/create', obj, {
           headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
-            "Content-Type": 'multipart/form-data'
           }})
 
         this.$store.dispatch('setMessage', {

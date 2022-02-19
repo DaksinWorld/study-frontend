@@ -60,7 +60,7 @@
           </div>
           <div class="catalog-univ">
             <div class="d-flex flex-row flex-wrap">
-              <div class="w-33" v-for="u in univ" :key="u.name">
+              <div class="w-33" v-for="u in slicedUniv" :key="u.name">
                 <UnivCard class="m-2" :data="u"/>
               </div>
             </div>
@@ -117,8 +117,15 @@ export default {
     this.data = await this.$axios.$get('/api/product')
     this.data.slice(0, 4)
     this.univ = await this.$store.dispatch('requests/getAll', 'univ')
-    this.univ.slice(0, 2)
     this.admissions = await this.$store.dispatch('requests/getAll', 'admission')
+  },
+  computed: {
+    isIncludes(){
+      return this.$route.fullPath.includes('fr')
+    },
+    slicedUniv() {
+      return this.univ.slice(0,3)
+    }
   }
 }
 </script>

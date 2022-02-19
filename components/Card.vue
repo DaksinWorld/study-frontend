@@ -5,10 +5,12 @@
         <div class="logo"><img height="90" width="90" :src="`${imageUrl}${data.images[1].url}`" alt=""></div>
           <div class="card-university-info">
             <div class="d-flex flex-column">
-              <span class="university-description">{{data.description}}</span>
+              <span class="university-description" v-if="isIncludesSp">{{data.descriptionSp}}</span>
+              <span class="university-description" v-else>{{data.descriptionEn}}</span>
               <span class="university-location d-flex align-items-center"><img width="20" height="20" src="https://gt.education/img/svg/home.svg" alt="location"> {{ data.location}}</span>
             </div>
-            <span class="university-degree">{{data.degree}}/{{data.fieldOfStudy}}</span>
+            <span class="university-degree" v-if="isIncludesSp">{{data.degreeSp}}/{{data.fieldOfStudySp}}</span>
+            <span class="university-degree" v-else>{{data.degreeEn}}/{{data.fieldOfStudyEn}}</span>
           </div>
         </div>
       <div class="card-specialty">
@@ -37,7 +39,12 @@
       <div @click="addToCart" v-if="!isAddedToCart" class="btn btn-primary">
         Add to Cart
       </div>
-      <nuxt-link v-else to="/cart">
+      <nuxt-link v-else-if="isIncludesSp" to="/sp/cart?step=1">
+        <div class="btn btn-primary col-lavender">
+          Go To Cart
+        </div>
+      </nuxt-link>
+      <nuxt-link v-else to="/cart?step=1">
         <div class="btn btn-primary col-lavender">
           Go To Cart
         </div>
@@ -68,6 +75,9 @@ export default {
         return true;
       return false;
     },
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
+    }
   },
   methods: {
     addToCart() {

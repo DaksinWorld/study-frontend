@@ -18,17 +18,17 @@
         <td v-if="d.images[1].url">
           <img height="50" width="50" :src='imageUrl + d.images[1].url' alt="image">
         </td>
-        <td v-if="d.name">
-          <h4>{{d.name}}</h4>
+        <td v-if="d.nameEn">
+          <h4>{{d.nameEn}}</h4>
         </td>
-        <td v-if="d.fieldOfCourse">
-          <h4>{{d.fieldOfCourse}}</h4>
+        <td v-if="d.fieldOfCourseEn">
+          <h4>{{d.fieldOfCourseEn}}</h4>
         </td>
         <td v-if="d.location">
           <h4>{{d.location}}</h4>
         </td>
-        <td v-if="d.universities">
-          <h4>{{d.universities}}</h4>
+        <td v-if="d.universitiesEn">
+          <h4>{{d.universitiesEn}}</h4>
         </td>
         <td v-if="d.price">
           <h4>{{d.price}}</h4>
@@ -86,7 +86,7 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue){
+          if(this.searchValue && e.name){
             return e.name.includes(this.searchValue)
           }
           return e

@@ -22,7 +22,11 @@
           <h4>{{d.color}}</h4>
         </td>
         <td>
-          <EditButton :url="`edit/admission/${d._id}`"/>
+          <button class="btn btn-primary">
+            <nuxt-link class="text-white" :to="`/admin/admission/${d._id}`">
+              Edit
+            </nuxt-link>
+          </button>
         </td>
       </tr>
       </tbody>
@@ -73,7 +77,7 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue){
+          if(this.searchValue && e.description){
             return e.description.includes(this.searchValue)
           }
           return e

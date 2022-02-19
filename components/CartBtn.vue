@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link to="/cart">
+  <nuxt-link to="/cart?step=1">
     <button v-if="theme === 'light'" class="btn-cart btnCartLight">
       Cart
     </button>

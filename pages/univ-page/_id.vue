@@ -4,8 +4,11 @@
       <div class="d-flex flex-row flex-wrap justify-content-center">
         <img class="img" v-if="data.images" :src="imageUrl + data.images[0].url" alt="univ-image">
         <div class="content m-0">
-          <h3 class="description">
-            {{data.description}}
+          <h3 class="description" v-if="isIncludesSp">
+            {{data.descriptionSp}}
+          </h3>
+          <h3 class="description" v-else>
+            {{data.descriptionEn}}
           </h3>
           <ul>
             <li>
@@ -28,9 +31,13 @@
               Total Students
               <span>{{data.totalStudents}}</span>
             </li>
-            <li>
+            <li v-if="isIncludesSp">
               Established By
-              <span>{{data.name}}</span>
+              <span>{{data.nameSp}}</span>
+            </li>
+            <li v-else>
+              Established By
+              <span>{{data.nameEn}}</span>
             </li>
           </ul>
         </div>
@@ -57,11 +64,16 @@ export default {
       imageUrl: imageUrl
     }
   },
+  computed: {
+    isIncludesSp(){
+      return this.$route.fullPath.includes('sp')
+    }
+  },
   async mounted() {
     document.querySelector('body').style.backgroundColor = 'rgb(61, 39, 156)'
     this.data = await this.$axios.$get('/api/univ/find/' + this.$route.query.id)
-    if(this.data.name) {
-      this.programs = await this.$axios.$post('/api/courses/findPrograms', {category: this.data.name})
+    if(this.data.nameEn) {
+      this.programs = await this.$axios.$post('/api/product/findPrograms', {program: this.data.nameEn})
     }
   },
   beforeDestroy() {

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <a :href="`/Programs?field=${data.fieldOfCourse}&univ=${data.universities}`">
+    <a v-if="isIncludesSp" :href="`/sp/Programs?field=${data.fieldOfCourse}&univ=${data.universities}`">
+      <div class="card">
+        <span>{{data.name}}</span>
+        <span>{{data.fieldOfCourse}}</span>
+      </div>
+    </a>
+    <a v-else :href="`/Programs?field=${data.fieldOfCourse}&univ=${data.universities}`">
       <div class="card">
         <span>{{data.name}}</span>
         <span>{{data.fieldOfCourse}}</span>
@@ -11,7 +17,12 @@
 
 <script>
 export default {
-  props: ['data']
+  props: ['data'],
+  computed: {
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
+    }
+  }
 }
 </script>
 

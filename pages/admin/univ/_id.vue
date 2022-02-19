@@ -1,16 +1,22 @@
 <template>
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <select v-model="name" class="form-control">
-        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
+      <label>Name English</label>
+      <select v-model="nameEn" class="form-control">
+        <option v-for="(name,i) in universityDataEn" :value="name" :key="i">{{ name }}</option>
+      </select>
+      <label>Name Spanish</label>
+      <select v-model="nameSp" class="form-control">
+        <option v-for="(name,i) in universityDataSp" :value="name" :key="i">{{ name }}</option>
       </select>
       <label>Location</label>
       <select v-model="location" class="form-control">
         <option v-for="(name,i) in cities" :value="name" :key="i">{{ name }}</option>
       </select>
-      <label>Description</label>
-      <input v-model="description" class="form-control" type="text" placeholder="Description">
+      <label>Description English</label>
+      <input v-model="descriptionEn" class="form-control" type="text" placeholder="Description">
+      <label>Description Spanish</label>
+      <input v-model="descriptionSp" class="form-control" type="text" placeholder="Description">
       <label>Int'l Students</label>
       <input v-model="intStudents" class="form-control" type="text" placeholder="Description">
       <label>Founded</label>
@@ -25,7 +31,7 @@
         Upload Image
       </label>
       <input id="file-upload" @change="getFile" class="form-control" type="file" ref="file">
-      <img v-if="data.images" width="100" height="130" :src="`/images${data.images[1].url}`" alt="image">
+      <img v-if="data.images" width="100" height="130" :src="file" alt="image">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger my-5" @click="deleteProduct">Delete</button>
@@ -33,31 +39,35 @@
 </template>
 
 <script>
-import { universityData} from "@/assets/data";
-import {city} from "../../../../assets/data";
+import {city, universityDataEn, universityData} from "../../../assets/data";
 
 export default {
   layout: 'admin',
   data: () => {
     return {
       data: [],
-      description: '',
-      name: '',
+      descriptionEn: '',
+      descriptionSp: '',
+      nameEn: '',
+      nameSp: '',
       location: '',
       totalStudents: '',
       intStudents: '',
       founded: '',
       file: '',
       faculty: '',
-      universityData: universityData,
+      universityDataEn: universityDataEn,
+      universityDataSp: universityData,
       cities: city
     }
   },
   async mounted() {
     this.data = await this.$axios.$get('/api/univ/find/' + this.$route.params.id)
     const data = this.data
-    this.description = data.description
-    this.name = data.name
+    this.descriptionEn = data.descriptionEn
+    this.descriptionSp = data.descriptionSp
+    this.nameEn = data.nameEn
+    this.nameSp = data.nameSp
     this.location = data.location
     this.faculty = data.faculty
     this.totalStudents = data.totalStudents
@@ -74,9 +84,11 @@ export default {
           formData.append('file', this.file)
         }
 
-        formData.append('name', this.name)
+        formData.append('nameEn', this.nameEn)
+        formData.append('nameSp', this.nameSp)
         formData.append('location', this.location)
-        formData.append('description', this.description)
+        formData.append('descriptionEn', this.descriptionEn)
+        formData.append('descriptionSp', this.descriptionSp)
         formData.append('founded', this.founded)
         formData.append('intStudents', this.intStudents)
         formData.append('faculty', this.faculty)

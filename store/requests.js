@@ -19,9 +19,10 @@ export const actions = {
 
   async checkJwt() {
     try {
-      await this.$axios.$get('/api/product/checkJwt', {headers: {
+      const response = await this.$axios.$get('/api/product/checkJwt', {headers: {
           Authorization: `Bearer ` + localStorage.getItem('jwt'),
         }})
+      console.log(response)
     } catch (e) {
       console.log(e)
     }

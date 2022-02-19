@@ -1,16 +1,22 @@
 <template>
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <select v-model="name" class="form-control">
-        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
+      <label>Name English</label>
+      <select v-model="nameEn" class="form-control">
+        <option v-for="(name,i) in universityDataEn" :value="name" :key="i">{{ name }}</option>
+      </select>
+      <label>Name Spanish</label>
+      <select v-model="nameSp" class="form-control">
+        <option v-for="(name,i) in universityDataSp" :value="name" :key="i">{{ name }}</option>
       </select>
       <label>Location</label>
       <select v-model="location" class="form-control">
         <option v-for="(name,i) in cities" :value="name" :key="i">{{ name }}</option>
       </select>
-      <label>Description</label>
-      <input v-model="description" class="form-control" type="text" placeholder="Description">
+      <label>Description English</label>
+      <input v-model="descriptionEn" class="form-control" type="text" placeholder="Description">
+      <label>Description Spanish</label>
+      <input v-model="descriptionSp" class="form-control" type="text" placeholder="Description">
       <label>Int'l Students</label>
       <input v-model="intStudents" class="form-control" type="text" placeholder="Int'l students">
       <label>Founded</label>
@@ -32,22 +38,30 @@
 </template>
 
 <script>
-import {city, universityData} from "../../assets/data";
+import {city, universityData, universityDataEn} from "../../assets/data";
 
 export default {
   layout: 'admin',
   data: () => {
     return {
       data: [],
-      description: '',
-      name: '',
+
+      descriptionEn: '',
+      descriptionSp: '',
+
+      nameEn: '',
+      nameSp: '',
+
       location: '',
       totalStudents: '',
       intStudents: '',
       founded: '',
       file: '',
       faculty: '',
-      universityData: universityData,
+
+      universityDataEn: universityDataEn,
+      universityDataSp: universityData,
+
       cities: city
     }
   },
@@ -61,13 +75,17 @@ export default {
           formData.append('file', this.file)
         }
 
-        formData.append('name', this.name)
+        formData.append('nameEn', this.nameEn)
+        formData.append('nameSp', this.nameSp)
         formData.append('location', this.location)
-        formData.append('description', this.description)
+        formData.append('descriptionEn', this.descriptionEn)
+        formData.append('descriptionSp', this.descriptionSp)
         formData.append('founded', this.founded)
         formData.append('intStudents', this.intStudents)
         formData.append('faculty', this.faculty)
         formData.append('totalStudents', this.totalStudents)
+
+        console.log(formData)
 
         await this.$axios.$post('/api/univ', formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),

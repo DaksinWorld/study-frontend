@@ -4,6 +4,9 @@
       <div class="wrapper">
         <nuxt-link to="/admin">Admin</nuxt-link>
         <nuxt-link to="/">Site</nuxt-link>
+        <button @click="logout" class="btn">
+          logout
+        </button>
       </div>
     </nav>
     <Nuxt/>
@@ -13,7 +16,13 @@
 
 <script>
 export default {
-  layout: 'admin'
+  layout: 'admin',
+  methods: {
+    logout(){
+      localStorage.removeItem('jwt')
+      location.reload()
+    }
+  }
 }
 </script>
 

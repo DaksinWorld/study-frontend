@@ -4,9 +4,7 @@
     <table class="table b-1" v-if="sortedData">
       <thead class="thead-dark">
       <tr>
-        <th @click="pickedBy('image')" :class="{active: picked === 'image'}">Image</th>
         <th @click="pickedBy('name')" :class="{active: picked === 'name'}">Name</th>
-        <th @click="pickedBy('description')" :class="{active: picked === 'description'}">Description</th>
         <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Location</th>
         <th @click="pickedBy('language')" :class="{active: picked === 'language'}">Language</th>
         <th @click="pickedBy('price')" :class="{active: picked === 'price'}">Price</th>
@@ -15,14 +13,8 @@
       </thead>
       <tbody>
       <tr v-for="(d, i) in sortedData" :key="i">
-        <td v-if="d.images[1].url">
-          <img height="50" width="50" :src='imageUrl + d.images[1].url' alt="image">
-        </td>
-        <td v-if="d.name">
-          <h4>{{d.name}}</h4>
-        </td>
-        <td v-if="d.description">
-          <h4>{{d.description}}</h4>
+        <td v-if="d.nameEn">
+          <h4>{{d.nameEn}}</h4>
         </td>
         <td v-if="d.location">
           <h4>{{d.location}}</h4>
@@ -85,8 +77,8 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue){
-            return e.description.includes(this.searchValue)
+          if(this.searchValue && e.nameEn){
+            return e.nameEn.includes(this.searchValue)
           }
           return e
         })

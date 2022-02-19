@@ -1,21 +1,24 @@
 <template>
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
-      <label>First Name</label>
-      <input v-model="firstName" class="form-control" type="text" placeholder="First Name">
-      <label>Second Name</label>
-      <input v-model="secondName" class="form-control" type="text" placeholder="Second Name">
+      <label>Name</label>
+      <input v-model="name" class="form-control" type="text" placeholder="Name">
       <label>Description</label>
       <input v-model="description" class="form-control" type="text" placeholder="Description">
-      <label>Subtitle</label>
-      <input v-model="subtitle" class="form-control" type="text" placeholder="Subtitle">
+      <label>Html Text</label>
+      <client-only placeholder="loading...">
+        <ckeditor-nuxt v-model="vhtml"  />
+      </client-only>
+      <label>Color</label>
+      <input v-model="color" class="form-control" type="color" placeholder="Description">
+      <label>Icon Svg</label>
+      <input v-model="iconUrl" class="form-control" type="text" placeholder="Description">
       <label>Image</label>
       <label>Image</label>
       <label for="file-upload" class="custom-file-upload">
         Upload Image
       </label>
       <input id="file-upload" @change="getFile" class="form-control" type="file" ref="file">
-      <img v-if="data.images" width="100" height="130" :src="`/images${data.images[1].url}`" alt="image">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger my-5" @click="deleteProduct">Delete</button>
@@ -23,28 +26,34 @@
 </template>
 
 <script>
-import {city, fieldOfCourses, PRODUCT_UPDATED, universityData} from "@/assets/data";
-import {WORKER_DELETED, WORKER_UPDATED} from "../../../../assets/data";
+
+import {imageUrl} from "../../../assets/data";
 
 export default {
   layout: 'admin',
+  components: {
+    'ckeditor-nuxt': () => { if (process.client) { return import('@blowstack/ckeditor-nuxt') } },
+  },
   data: () => {
     return {
       data: [],
       description: '',
-      firstName: '',
-      secondName: '',
-      subtitle: '',
-      file: ''
+      name: '',
+      file: '',
+      color: '',
+      vhtml: '',
+      iconUrl: '',
+      imageUrl: imageUrl
     }
   },
   async mounted() {
-    this.data = await this.$axios.$get('/api/workers/find/' + this.$route.params.id)
+    this.data = await this.$axios.$get('/api/admission/find/' + this.$route.params.id)
     const data = this.data
     this.description = data.description
-    this.firstName = data.firstName
-    this.secondName = data.secondName
-    this.subtitle = data.subtitle
+    this.name = data.name
+    this.vhtml = data.htmlText
+    this.color = data.color
+    this.iconUrl = data.iconUrl
   },
   methods: {
     async SubmitHandler(e) {
@@ -56,17 +65,18 @@ export default {
           formData.append('file', this.file)
         }
 
-        formData.append('firstName', this.firstName)
-        formData.append('subtitle', this.subtitle)
-        formData.append('secondName', this.secondName)
+        formData.append('name', this.name)
+        formData.append('htmlText', this.vhtml)
         formData.append('description', this.description)
+        formData.append('color', this.color)
+        formData.append('iconUrl', this.iconUrl)
 
-        await this.$axios.$patch('/api/workers/' + this.$route.params.id, formData, {headers: {
+        await this.$axios.$patch('/api/admission/' + this.$route.params.id, formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
             "Content-Type": 'multipart/form-data'
           }})
         this.$store.dispatch('setMessage', {
-          value: WORKER_UPDATED,
+          value: 'Admission updated',
           type: 'primary'
         })
       } catch(e) {
@@ -81,11 +91,11 @@ export default {
     },
     async deleteProduct() {
       try {
-        await this.$axios.$delete('/api/workers/'+this.$route.params.id, {headers: {
+        await this.$axios.$delete('/api/admission/'+this.$route.params.id, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
           }})
         this.$store.dispatch('setMessage', {
-          value: WORKER_DELETED,
+          value: 'Admission deleted',
           type: 'primary'
         })
         this.$router.push('/admin')
@@ -101,6 +111,7 @@ export default {
 </script>
 
 <style scoped>
+
 .custom-file-upload {
   border: 1px solid #ccc;
   display: inline-block;

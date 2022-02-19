@@ -1,23 +1,19 @@
 <template>
   <div class="wrapper">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <input v-model="name" class="form-control" type="text" placeholder="Name">
+      <label>First Name</label>
+      <input v-model="firstName" class="form-control" type="text" placeholder="First Name">
+      <label>Second Name</label>
+      <input v-model="secondName" class="form-control" type="text" placeholder="Second Name">
       <label>Description</label>
       <input v-model="description" class="form-control" type="text" placeholder="Description">
-      <label>Html Text</label>
-      <client-only placeholder="loading...">
-        <ckeditor-nuxt v-model="vhtml"  />
-      </client-only>
-      <label>Color</label>
-      <input v-model="color" class="form-control" type="color" placeholder="Description">
-      <label>Icon Svg</label>
-      <input v-model="iconUrl" class="form-control" type="text" placeholder="Description">
+      <label>Subtitle</label>
+      <input v-model="subtitle" class="form-control" type="text" placeholder="Subtitle">
       <label>Image</label>
-      <label>Image</label>
-      <label for="file-upload" class="custom-file-upload">
+      <label for="file-upload" class="custom-file-upload w-100">
         Upload Image
       </label>
+      <span v-if="file.name">{{file.name}}</span>
       <input id="file-upload" @change="getFile" class="form-control" type="file" ref="file">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
@@ -26,34 +22,27 @@
 </template>
 
 <script>
-
-import {imageUrl} from "../../../../assets/data";
+import {WORKER_DELETED, WORKER_UPDATED} from "../../../assets/data";
 
 export default {
   layout: 'admin',
-  components: {
-    'ckeditor-nuxt': () => { if (process.client) { return import('@blowstack/ckeditor-nuxt') } },
-  },
   data: () => {
     return {
       data: [],
       description: '',
-      name: '',
-      file: '',
-      color: '',
-      vhtml: '',
-      iconUrl: '',
-      imageUrl: imageUrl
+      firstName: '',
+      secondName: '',
+      subtitle: '',
+      file: ''
     }
   },
   async mounted() {
-    this.data = await this.$axios.$get('/api/admission/find/' + this.$route.params.id)
+    this.data = await this.$axios.$get('/api/workers/find/' + this.$route.params.id)
     const data = this.data
     this.description = data.description
-    this.name = data.name
-    this.vhtml = data.htmlText
-    this.color = data.color
-    this.iconUrl = data.iconUrl
+    this.firstName = data.firstName
+    this.secondName = data.secondName
+    this.subtitle = data.subtitle
   },
   methods: {
     async SubmitHandler(e) {
@@ -61,22 +50,18 @@ export default {
       try {
         const formData = new FormData()
 
-        if(this.file !== '') {
-          formData.append('file', this.file)
-        }
-
-        formData.append('name', this.name)
-        formData.append('htmlText', this.vhtml)
+        formData.append('file', this.file)
+        formData.append('firstName', this.firstName)
+        formData.append('subtitle', this.subtitle)
+        formData.append('secondName', this.secondName)
         formData.append('description', this.description)
-        formData.append('color', this.color)
-        formData.append('iconUrl', this.iconUrl)
 
-        await this.$axios.$patch('/api/admission/' + this.$route.params.id, formData, {headers: {
+        await this.$axios.$patch('/api/workers/' + this.$route.params.id, formData, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
             "Content-Type": 'multipart/form-data'
           }})
         this.$store.dispatch('setMessage', {
-          value: 'Admission updated',
+          value: WORKER_UPDATED,
           type: 'primary'
         })
       } catch(e) {
@@ -86,16 +71,13 @@ export default {
         })
       }
     },
-    getFile(){
-      this.file = this.$refs.file.files[0]
-    },
     async deleteProduct() {
       try {
-        await this.$axios.$delete('/api/admission/'+this.$route.params.id, {headers: {
+        await this.$axios.$delete('/api/workers/'+this.$route.params.id, {headers: {
             Authorization: `Bearer ` + localStorage.getItem('jwt'),
           }})
         this.$store.dispatch('setMessage', {
-          value: 'Admission deleted',
+          value: WORKER_DELETED,
           type: 'primary'
         })
         this.$router.push('/admin')
@@ -105,13 +87,15 @@ export default {
           type: 'danger'
         })
       }
+    },
+    getFile(){
+      this.file = this.$refs.file.files[0]
     }
   }
 }
 </script>
 
 <style scoped>
-
 .custom-file-upload {
   border: 1px solid #ccc;
   display: inline-block;

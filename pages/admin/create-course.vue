@@ -1,28 +1,45 @@
 <template>
   <div class="container">
     <form @submit.prevent="SubmitHandler">
-      <label>Name</label>
-      <input v-model="name" class="form-control" type="text" placeholder="name">
+      <label>Name English</label>
+      <input v-model="nameEn" class="form-control" type="text" placeholder="name">
+
+      <label>Name Spanish</label>
+      <input v-model="nameSp" class="form-control" type="text" placeholder="name">
+
       <label>Deadline</label>
       <input v-model="deadline" class="form-control" type="text" placeholder="deadline">
-      <label>Universities</label>
-      <select v-model="university" class="form-control">
-        <option v-for="(name,i) in universityData" :value="name" :key="i">{{ name }}</option>
+
+      <label>Universities English</label>
+      <select v-model="universityEn" class="form-control">
+        <option v-for="(name,i) in universityDataEn" :value="name" :key="i">{{ name }}</option>
       </select>
+
+      <label>Universities Spanish</label>
+      <select v-model="universitySp" class="form-control">
+        <option v-for="(name,i) in universityDataSp" :value="name" :key="i">{{ name }}</option>
+      </select>
+
+
       <label>Cities</label>
-      <select v-model="city" class="form-control">
+      <select v-model="location" class="form-control">
         <option v-for="(name,i) in citiesData" :value="name" :key="i">{{ name }}</option>
       </select>
-      <label>Field Of Study</label>
-      <select v-model="fieldOfCourse" class="form-control">
-        <option v-for="(name,i) in fieldOfCourseData" :value="name" :key="i">{{ name }}</option>
+
+      <label>Field Of Study English</label>
+      <select v-model="fieldOfCourseEn" class="form-control">
+        <option v-for="(name,i) in fieldOfCourseDataEn" :value="name" :key="i">{{ name }}</option>
       </select>
+
+      <label>Field Of Study Spanish</label>
+      <select v-model="fieldOfCourseSp" class="form-control">
+        <option v-for="(name,i) in fieldOfCourseDataSp" :value="name" :key="i">{{ name }}</option>
+      </select>
+
       <label>Price</label>
       <input v-model="price" class="form-control" type="number" placeholder="price">
       <label>Start Date</label>
       <input v-model="startDate" class="form-control" type="text" placeholder="startDate">
-      <label>Location</label>
-      <input v-model="location" class="form-control" type="text" placeholder="location">
       <label>Duration</label>
       <input v-model="duration" class="form-control" type="number" placeholder="duration">
       <label>Image</label>
@@ -40,7 +57,7 @@
 import {
   PRODUCT_CREATED,
   fieldOfCourses,
-  city, universityData
+  city, universityDataEn, universityData, fieldOfCoursesSp
 } from "../../assets/data";
 
 export default {
@@ -48,18 +65,29 @@ export default {
   data: () => {
     return {
       response: '',
-      name: '',
-      fieldOfCourse: '',
-      description: '',
+
+      nameEn: '',
+      nameSp: '',
+
+      fieldOfCourseEn: '',
+      fieldOfCourseSp: '',
+
       price: '',
       location: '',
       duration: '',
-      university: '',
+
+      universityEn: '',
+      universitySp: '',
+
       deadline: '',
       city: '',
       startDate: '',
-      fieldOfCourseData: fieldOfCourses,
-      universityData: universityData,
+      fieldOfCourseDataEn: fieldOfCourses,
+      fieldOfCourseDataSp: fieldOfCoursesSp,
+
+      universityDataEn: universityDataEn,
+      universityDataSp: universityData,
+
       citiesData: city,
       file: ''
     }
@@ -71,16 +99,17 @@ export default {
         const formData = new FormData()
 
         formData.append('file', this.file)
-        formData.append('name', this.name)
-        formData.append('fieldOfCourse', this.fieldOfCourse)
+        formData.append('nameEn', this.nameEn)
+        formData.append('nameSp', this.nameSp)
+        formData.append('fieldOfCourseEn', this.fieldOfCourseEn)
+        formData.append('fieldOfCourseSp', this.fieldOfCourseSp)
         formData.append('startDate', this.startDate)
-        formData.append('description', this.description)
         formData.append('price', this.price)
-        formData.append('university', this.university)
+        formData.append('universitiesEn', this.universityEn)
+        formData.append('universitiesSp', this.universitySp)
         formData.append('location', this.location)
         formData.append('duration', this.duration)
         formData.append('deadline', this.deadline)
-        formData.append('city', this.city)
         formData.append('createdAt', Date.now().toString())
 
         await this.$axios.$post('/api/courses/create', formData, {

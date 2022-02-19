@@ -3,14 +3,19 @@
     <nav>
       <div class="wrapper">
         <div class="d-flex">
-          <nuxt-link to="/">
+          <nuxt-link v-if="isIncludesSp" to="/sp">
+            <img src="/logo.svg" width="140" height="140" alt="logo">
+          </nuxt-link>
+          <nuxt-link v-else to="/">
             <img src="/logo.svg" width="140" height="140" alt="logo">
           </nuxt-link>
           <div class="right d-flex">
             <div class="menu-opened">
               <div v-for="m in menu" :key="m.name">
-                <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+                <nuxt-link v-if="isIncludesSp" :to="`/sp/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+                <nuxt-link v-else :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
               </div>
+              <I18n/>
             </div>
             <CartBtn :theme="'dark'" class="mx-3"/>
             <img @click="openMenu" class="menu" width="29px" height="22px" src="/white-menu.svg" alt="menu">
@@ -20,8 +25,10 @@
     </nav>
     <div class="menus">
       <div v-for="m in menu" :key="m.name">
-        <nuxt-link :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+        <nuxt-link v-if="isIncludesSp" :to="`/sp/${m.path}`" class="links">{{ m.name }}</nuxt-link>
+        <nuxt-link v-else :to="`/${m.path}`" class="links">{{ m.name }}</nuxt-link>
       </div>
+      <I18n/>
       <button @click="closeMenu" class="close">x</button>
     </div>
   </div>
@@ -34,6 +41,11 @@ export default {
   data: () => {
     return {
       menu: menuEn
+    }
+  },
+  computed: {
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
     }
   },
   methods: {

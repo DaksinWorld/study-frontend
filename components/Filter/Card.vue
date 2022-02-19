@@ -12,39 +12,76 @@
     </div>
     <div class="filters">
       <div class="firstFilters" v-if="pickedValue === 'degree'">
-        <div class="degree">
+        <div class="degree" v-if="isIncludesSp">
           <label for="degree">Degree</label>
           <select v-model="degreeVal" id="degree" class="form-control">
             <option value="">All Degrees</option>
-            <option v-for="(name,i) in degree" :value="name" :key="i">{{ name }}</option>
+            <option v-for="(name,i) in degreeSp" :value="name" :key="i">{{ name }}</option>
           </select>
         </div>
-        <div class="fieldOfStudy">
-          <label for="fieldOfStudy">Field Of Study</label>
+        <div class="degree" v-else>
+          <label>Degree</label>
+          <select v-model="degreeVal" class="form-control">
+            <option value="">All Degrees</option>
+            <option v-for="(name,i) in degreeEn" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
+        <div class="fieldOfStudy" v-if="isIncludesSp">
+          <label>Field Of Study</label>
+          <select v-model="fieldStudyValue" class="form-control">
+            <option value="">All Fields of study</option>
+            <option v-for="(name,i) in fieldOfStudySp" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
+        <div class="fieldOfStudy" v-else>
+          <label>Field Of Study</label>
           <select v-model="fieldStudyValue" id="fieldOfStudy" class="form-control">
             <option value="">All Fields of study</option>
-            <option v-for="(name,i) in fieldOfStudy" :value="name" :key="i">{{ name }}</option>
+            <option v-for="(name,i) in fieldOfStudyEn" :value="name" :key="i">{{ name }}</option>
           </select>
         </div>
-        <label for="Programs">Programs</label>
-        <select v-model="programsValue" id="Programs" class="form-control">
-          <option value="">All Fields of study</option>
-          <option v-for="(name,i) in programsData" :value="name" :key="i">{{ name }}</option>
-        </select>
+        <div class="degree" v-if="isIncludesSp">
+          <label>Programs</label>
+          <select v-model="programsValue" class="form-control">
+            <option value="">All Fields of study</option>
+            <option v-for="(name,i) in programsDataSp" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
+        <div class="degree" v-else>
+          <label>Programs</label>
+          <select v-model="programsValue" class="form-control">
+            <option value="">All Fields of study</option>
+            <option v-for="(name,i) in programsDataEn" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
       </div>
       <div class="secondFilters" v-else>
-        <div class="degree">
-          <label for="fieldOfStudy2">Field Of Study</label>
-          <select v-model="fieldCoursesValue" id="fieldOfStudy2" class="form-control">
+        <div class="degree" v-if="isIncludesSp">
+          <label>Field Of Study</label>
+          <select v-model="fieldCoursesValue" class="form-control">
             <option value="">All Fields of study</option>
-            <option v-for="(name,i) in fieldOfCourses" :value="name" :key="i">{{ name }}</option>
+            <option v-for="(name,i) in fieldOfCoursesSp" :value="name" :key="i">{{ name }}</option>
           </select>
         </div>
-        <div class="fieldOfStudy">
-          <label for="Universities">Universities</label>
-          <select v-model="universitiesValue" id="Universities" class="form-control">
+        <div class="degree" v-else>
+          <label>Field Of Study</label>
+          <select v-model="fieldCoursesValue"class="form-control">
+            <option value="">All Fields of study</option>
+            <option v-for="(name,i) in fieldOfCoursesEn" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
+        <div class="fieldOfStudy" v-if="isIncludesSp">
+          <label>Universities</label>
+          <select v-model="universitiesValue" class="form-control">
             <option value="">All Universities</option>
-            <option v-for="(name,i) in universities" :value="name" :key="i">{{ name }}</option>
+            <option v-for="(name,i) in universitiesSp" :value="name" :key="i">{{ name }}</option>
+          </select>
+        </div>
+        <div class="fieldOfStudy" v-else>
+          <label>Universities</label>
+          <select v-model="universitiesValue" class="form-control">
+            <option value="">All Universities</option>
+            <option v-for="(name,i) in universitiesEn" :value="name" :key="i">{{ name }}</option>
           </select>
         </div>
       </div>
@@ -54,16 +91,33 @@
 </template>
 
 <script>
-import {degree, fieldOfCourses, fieldOfStudy, programs, universityData} from "../../assets/data";
+import {
+  degree, degreeSp,
+  fieldOfCourses,
+  fieldOfCoursesSp,
+  fieldOfStudy,
+  fieldOfStudySp,
+  programsEn, programsSp,
+  universityData, universityDataEn
+} from "../../assets/data";
 
 export default {
   data: () => {
     return {
-      fieldOfStudy: fieldOfStudy,
-      fieldOfCourses: fieldOfCourses,
-      universities: universityData,
-      degree: degree,
-      programsData: programs,
+      fieldOfStudyEn: fieldOfStudy,
+      fieldOfStudySp: fieldOfStudySp,
+
+      fieldOfCoursesEn: fieldOfCourses,
+      fieldOfCoursesSp: fieldOfCoursesSp,
+
+      universitiesEn: universityDataEn,
+      universitiesSp: universityData,
+
+      degreeEn: degree,
+      degreeSp: degreeSp,
+
+      programsDataEn: programsEn,
+      programsDataSp: programsSp,
 
       pickedValue: 'degree',
 
@@ -77,13 +131,26 @@ export default {
   methods: {
     HandleSubmit() {
       if(this.pickedValue === 'degree') {
-        this.$router.push(`/programs/?degree=${this.degreeVal}&fieldStudy=${this.fieldStudyValue}&program=${this.programsValue}&type=degree`)
+        if(this.isIncludesSp) {
+          this.$router.push(`/sp/programs/?degree=${this.degreeVal}&fieldStudy=${this.fieldStudyValue}&program=${this.programsValue}&type=degree`)
+        } else {
+          this.$router.push(`/programs/?degree=${this.degreeVal}&fieldStudy=${this.fieldStudyValue}&program=${this.programsValue}&type=degree`)
+        }
       } else {
-        this.$router.push(`/programs/?univ=${this.universitiesValue}&field=${this.fieldCoursesValue}&type=courses`)
+        if(this.isIncludesSp) {
+          this.$router.push(`/sp/programs/?univ=${this.universitiesValue}&field=${this.fieldCoursesValue}&type=courses`)
+        } else {
+          this.$router.push(`/programs/?univ=${this.universitiesValue}&field=${this.fieldCoursesValue}&type=courses`)
+        }
       }
     },
     selectPickedValue(text){
       this.pickedValue = text
+    }
+  },
+  computed: {
+    isIncludesSp() {
+      return this.$route.fullPath.includes('sp')
     }
   },
   mounted() {
@@ -133,6 +200,13 @@ label {
 
 .pickedBtn {
   border-bottom: var(--white_hex) solid 2px;
+}
+
+@media screen and (max-width: 500px) {
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 </style>

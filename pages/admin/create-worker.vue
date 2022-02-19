@@ -22,7 +22,7 @@
 
 <script>
 import {
-  PRODUCT_CREATED, WORKER_CREATED,
+  WORKER_CREATED,
 } from "../../assets/data";
 
 export default {
@@ -70,11 +70,21 @@ export default {
     },
     getFile(){
       this.file = this.$refs.file.files[0]
-    },
+    }
   }
 }
 </script>
 
 <style scoped>
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+}
 
+input[type=file] {
+  display: none;
+}
 </style>

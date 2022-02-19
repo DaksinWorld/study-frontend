@@ -18,7 +18,9 @@
     "core-js": "^3.15.1",
     "nuxt": "^2.15.7",
     "vue-froala-wysiwyg": "^4.0.9",
+    "vue-phone-number-input": "^1.1.12",
     "vue-running-number": "^2.0.2",
+    "vue-tel-input": "^5.10.0",
     "vue-wysiwyg": "^1.7.2",
     "w-ckeditor-vue": "^2.0.1"
   },
