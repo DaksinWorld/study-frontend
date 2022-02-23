@@ -36,7 +36,9 @@ export const fieldOfStudy = [
   'Law',
   'Medicine & Health',
   'Natural Sciences & Mathematics',
-  'Social Sciences'
+  'Social Sciences',
+  'Applied Informatics',
+  'System analysis and management'
 ]
 
 export const fieldOfStudySp = [
@@ -53,7 +55,13 @@ export const fieldOfStudySp = [
   'Ley',
   'Medicina y salud',
   'Ciencias Naturales y Matemáticas',
-  'Ciencias Sociales'
+  'Ciencias Sociales',
+  'Física', 'matemáticas',
+  'Idioma extranjero (inglés)',
+  'Lengua extranjera (alemán)',
+  'Educación primaria - educación preescolar',
+  'Arte', 'ecnología',
+  'Música', 'arte mundial'
 ]
 
 export const fieldOfCourses = [
@@ -112,7 +120,7 @@ export const city = [
 export const programsEn = [
   `Advertising and public relations`,
   `Agrochemistry and agrosoil science`,
-  `Agronomy`,
+  {name: `Agronomy`, type: ''},
   `Applied Mathematics and Computer Science`,
   `Applied mechanics`,
   `Biotechnical systems and technologies`,

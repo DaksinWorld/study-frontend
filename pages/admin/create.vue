@@ -47,14 +47,17 @@
         <option value="Russian">Russian</option>
         <option value="English">English</option>
       </select>
+      <label>Additional Language</label>
+      <select class="form-control" v-model="additionalLanguage">
+        <option value="Russian">Russian</option>
+        <option value="English">English</option>
+      </select>
       <label>Location</label>
       <select v-model="location" class="form-control">
         <option v-for="(name,i) in citiesData" :value="name" :key="i">{{ name }}</option>
       </select>
       <label>Duration(month)</label>
       <input v-model="duration" class="form-control" type="number" placeholder="duration">
-      <label>Foundation Course Price</label>
-      <input multiple value v-model="foundationCoursePrice" class="form-control" type="number" placeholder="foundationCoursePrice">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
   </div>
@@ -93,8 +96,8 @@ export default {
       language: '',
       location: '',
       duration: '',
-      foundationCoursePrice: '',
       file: '',
+      additionalLanguage: '',
 
       degreeDataEn: degree,
       degreeDataSp: degreeSp,
@@ -126,9 +129,9 @@ export default {
           nameEn: this.nameEn,
           nameSp: this.nameSp,
           language: this.language,
+          additionalLanguage: this.additionalLanguage,
           price: this.price,
           duration: this.duration,
-          foundationCoursePrice: this.foundationCoursePrice,
           createdAt: Date.now().toString()
         }
 

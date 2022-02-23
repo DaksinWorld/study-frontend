@@ -47,12 +47,15 @@
         <option value="Russian">Russian</option>
         <option value="English">English</option>
       </select>
+      <label>Additional Language</label>
+      <select v-model="additionalLanguage" class="form-control">
+        <option value="Russian">Russian</option>
+        <option value="English">English</option>
+      </select>
       <label>Location</label>
       <input v-model="location" class="form-control" type="text" :placeholder="data.location">
       <label>Duration</label>
       <input v-model="duration" class="form-control" type="text" :placeholder="data.duration">
-      <label>Foundation Course Price</label>
-      <input v-model="foundationCoursePrice" class="form-control" type="text" :placeholder="data.foundationCoursePrice">
       <button class="btn btn-primary mt-5 w-100" type="submit">Submit</button>
     </form>
     <button class="btn btn-danger my-5" @click="deleteProduct">Delete</button>
@@ -86,6 +89,8 @@ export default {
       programsEn: '',
       programsSp: '',
 
+      additionalLanguage: '',
+
       fieldOfStudyEn: '',
       fieldOfStudySp: '',
 
@@ -93,7 +98,6 @@ export default {
       language: '',
       location: '',
       duration: '',
-      foundationCoursePrice: '',
       form: [],
 
       degreeDataEn: degree,
@@ -125,9 +129,9 @@ export default {
 
     this.price = this.data.price
     this.language = this.data.language
+    this.additionalLanguage = this.data.additionalLanguage
     this.location = this.data.location
     this.duration = this.data.duration
-    this.foundationCoursePrice = this.data.foundationCoursePrice
   },
   methods: {
     async SubmitHandler(e) {
@@ -144,9 +148,9 @@ export default {
           nameEn: this.nameEn,
           nameSp: this.nameSp,
           language: this.language,
+          additionalLanguage: this.additionalLanguage,
           price: this.price,
           duration: this.duration,
-          foundationCoursePrice: this.foundationCoursePrice,
           createdAt: Date.now().toString()
         }
 

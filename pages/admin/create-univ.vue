@@ -25,7 +25,8 @@
       <input v-model="faculty" class="form-control" type="text" placeholder="Faculty">
       <label>Total Students</label>
       <input v-model="totalStudents" class="form-control" type="text" placeholder="Total Students">
-      <label>Image</label>
+      <label>Foundation Course Price</label>
+      <input v-model="foundationCoursePrice" class="form-control" type="text" placeholder="foundationCoursePrice">
       <label>Image</label>
       <label for="file-upload" class="custom-file-upload">
         Upload Image
@@ -51,6 +52,8 @@ export default {
 
       nameEn: '',
       nameSp: '',
+
+      foundationCoursePrice: '',
 
       location: '',
       totalStudents: '',
@@ -84,6 +87,7 @@ export default {
         formData.append('intStudents', this.intStudents)
         formData.append('faculty', this.faculty)
         formData.append('totalStudents', this.totalStudents)
+        formData.append('foundationCoursePrice', this.foundationCoursePrice)
 
         console.log(formData)
 

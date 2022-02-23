@@ -25,7 +25,8 @@
       <input v-model="faculty" class="form-control" type="text" placeholder="Description">
       <label>Total Students</label>
       <input v-model="totalStudents" class="form-control" type="text" placeholder="Subtitle">
-      <label>Image</label>
+      <label>foundationCoursePrice</label>
+      <input v-model="foundationCoursePrice" class="form-control" type="text" placeholder="foundationCoursePrice">
       <label>Image</label>
       <label for="file-upload" class="custom-file-upload">
         Upload Image
@@ -56,6 +57,7 @@ export default {
       founded: '',
       file: '',
       faculty: '',
+      foundationCoursePrice: '',
       universityDataEn: universityDataEn,
       universityDataSp: universityData,
       cities: city
@@ -73,6 +75,7 @@ export default {
     this.totalStudents = data.totalStudents
     this.intStudents = data.intStudents
     this.founded = data.founded
+    this.foundationCoursePrice = data.foundationCoursePrice
   },
   methods: {
     async SubmitHandler(e) {
@@ -90,6 +93,7 @@ export default {
         formData.append('descriptionEn', this.descriptionEn)
         formData.append('descriptionSp', this.descriptionSp)
         formData.append('founded', this.founded)
+        formData.append('foundationCoursePrice', this.foundationCoursePrice)
         formData.append('intStudents', this.intStudents)
         formData.append('faculty', this.faculty)
         formData.append('totalStudents', this.totalStudents)

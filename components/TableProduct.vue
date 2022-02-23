@@ -1,10 +1,13 @@
 <template>
   <div>
-    <input type="search" class="form-control my-2" v-model="searchValue">
+    <input type="search" class="form-control my-2" v-model="searchValueName" placeholder="Name">
+    <input type="search" class="form-control my-2" v-model="searchValueProgram" placeholder="Program">
     <table class="table b-1" v-if="sortedData">
       <thead class="thead-dark">
       <tr>
         <th @click="pickedBy('name')" :class="{active: picked === 'name'}">Name</th>
+        <th @click="pickedBy('speciality')" :class="{active: picked === 'speciality'}">Speciality</th>
+        <th @click="pickedBy('programs')" :class="{active: picked === 'programs'}">Program</th>
         <th @click="pickedBy('location')" :class="{active: picked === 'location'}">Location</th>
         <th @click="pickedBy('language')" :class="{active: picked === 'language'}">Language</th>
         <th @click="pickedBy('price')" :class="{active: picked === 'price'}">Price</th>
@@ -15,6 +18,12 @@
       <tr v-for="(d, i) in sortedData" :key="i">
         <td v-if="d.nameEn">
           <h4>{{d.nameEn}}</h4>
+        </td>
+        <td v-if="d.fieldOfStudyEn">
+          <h4>{{d.fieldOfStudyEn}}</h4>
+        </td>
+        <td v-if="d.programsEn">
+          <h4>{{d.programsEn}}</h4>
         </td>
         <td v-if="d.location">
           <h4>{{d.location}}</h4>
@@ -47,7 +56,8 @@ export default {
       jwtToken: '',
       data: [],
       picked: '',
-      searchValue: '',
+      searchValueName: '',
+      searchValueProgram: '',
       imageUrl: imageUrl
     }
   },
@@ -77,11 +87,18 @@ export default {
           return a[this.picked] > b[this.picked] ? 1 : -1
         })
         .filter((e) => {
-          if(this.searchValue && e.nameEn){
-            return e.nameEn.includes(this.searchValue)
+          if(this.searchValueName){
+            return e.nameEn.includes(this.searchValueName)
           }
           return e
         })
+        .filter((e) => {
+          if(this.searchValueProgram){
+            return e.programsEn.includes(this.searchValueProgram)
+          }
+          return e
+        })
+
     }
   }
 }

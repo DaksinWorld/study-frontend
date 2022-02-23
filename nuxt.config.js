@@ -72,7 +72,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseUrl: development ? 'http://localhost:3000' : 'https://univente.me'
+    baseUrl: development ? 'https://univente.me' : 'https://univente.me'
   },
 
   proxy: {
